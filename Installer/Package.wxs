@@ -1,6 +1,6 @@
 ﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
      xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util">
-  <Package Name="AO Vpn Manager" Manufacturer="Rinrab"
+  <Package Name="Always On Vpn Manager" Manufacturer="Rinrab"
            Version="1.0.0.0" UpgradeCode="5fe165a7-f2e7-4fca-8291-4e54e7e33715"
            Scope="perMachine" Compressed="yes">
 
