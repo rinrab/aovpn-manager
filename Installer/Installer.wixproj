@@ -3,6 +3,9 @@
     <Content Include="TaskConfig.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="WixToolset.Util.wixext" Version="4.0.3" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\AOVpnManager\AOVpnManager.csproj" />
   </ItemGroup>
 </Project>

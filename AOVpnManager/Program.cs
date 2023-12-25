@@ -1,22 +1,26 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace AOVpnManager
 {
     public class Program
     {
-        static int Main(string[] args)
+        static void Main(string[] args)
         {
-            Console.WriteLine("Hello, world!");
+            MinimalEventSource.Log.Started();
+            int exitCode = 0;
 
-            using (Process process = Process.Start("mspaint"))
+            try
             {
-                process.WaitForExit();
+                Console.WriteLine("Hello, world!");
             }
-
-            Console.WriteLine("Goodbye, world!");
-
-            return 0;
+            catch (Exception ex)
+            {
+                MinimalEventSource.Log.Exception(ex.ToString());
+            }
+            finally
+            {
+                MinimalEventSource.Log.Finished(exitCode);
+            }
         }
     }
 }

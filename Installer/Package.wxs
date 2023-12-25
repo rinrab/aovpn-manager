@@ -1,4 +1,5 @@
-﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util">
   <Package Name="AO Vpn Manager" Manufacturer="Rinrab"
            Version="1.0.0.0" UpgradeCode="5fe165a7-f2e7-4fca-8291-4e54e7e33715"
            Scope="perMachine" Compressed="yes">
@@ -15,15 +16,35 @@
     <Feature Id="Main">
       <Component Directory="INSTALLFOLDER">
         <File Source="$(AOVpnManager.TargetPath)" />
+      </Component>
+
+      <Component Directory="INSTALLFOLDER">
+        <File Source="$(var.AOVpnManager.TargetDir)\Microsoft.Diagnostics.Tracing.EventSource.dll" />
+      </Component>
+
+      <Component Directory="INSTALLFOLDER">
         <File Source="TaskConfig.xml" />
+      </Component>
+
+      <Component Directory="INSTALLFOLDER">
+        <File Id="etwManifest.dll"
+              Source="$(var.AOVpnManager.TargetDir)\AOVpnManager.AOVpnManager.etwManifest.dll"/>
+      </Component>
+
+      <Component Directory="INSTALLFOLDER">
+        <File Id="etwManifest.man"
+              Source="$(var.AOVpnManager.TargetDir)\AOVpnManager.AOVpnManager.etwManifest.man">
+          <util:EventManifest MessageFile="[#etwManifest.dll]" ResourceFile="[#etwManifest.dll]" />
+        </File>
       </Component>
     </Feature>
 
-    <CustomAction Id="CreateTask" Execute="deferred" Impersonate="yes" Return="check" Directory="INSTALLFOLDER"
+
+    <CustomAction Id="CreateTask" Execute="deferred" Impersonate="no" Return="check" Directory="INSTALLFOLDER"
                   ExeCommand='schtasks.exe /Create /TN "AOVpn Manager Group Policy Update" /XML "[INSTALLFOLDER]TaskConfig.xml"' />
 
     <!-- Ignore exit code because task may be deleted by user. Maybe this is not the best solution. -->
-    <CustomAction Id="DeleteTask" Execute="deferred" Impersonate="yes" Return="ignore" Directory="INSTALLFOLDER"
+    <CustomAction Id="DeleteTask" Execute="deferred" Impersonate="no" Return="ignore" Directory="INSTALLFOLDER"
                   ExeCommand='schtasks.exe /Delete /TN "AOVpn Manager Group Policy Update" /F' />
 
     <InstallExecuteSequence>
