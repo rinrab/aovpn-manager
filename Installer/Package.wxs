@@ -1,0 +1,35 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Name="AO Vpn Manager" Manufacturer="Rinrab"
+           Version="1.0.0.0" UpgradeCode="5fe165a7-f2e7-4fca-8291-4e54e7e33715"
+           Scope="perMachine" Compressed="yes">
+
+    <MediaTemplate EmbedCab="yes" />
+
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)"
+                  AllowSameVersionUpgrades="yes" />
+
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <Directory Id="INSTALLFOLDER" Name="!(bind.Property.ProductName)" />
+    </StandardDirectory>
+
+    <Feature Id="Main">
+      <Component Directory="INSTALLFOLDER">
+        <File Source="$(AOVpnManager.TargetPath)" />
+        <File Source="TaskConfig.xml" />
+      </Component>
+    </Feature>
+
+    <CustomAction Id="CreateTask" Execute="deferred" Impersonate="yes" Return="check" Directory="INSTALLFOLDER"
+                  ExeCommand='schtasks.exe /Create /TN "AOVpn Manager Group Policy Update" /XML "[INSTALLFOLDER]TaskConfig.xml"' />
+
+    <!-- Ignore exit code because task may be deleted by user. Maybe this is not the best solution. -->
+    <CustomAction Id="DeleteTask" Execute="deferred" Impersonate="yes" Return="ignore" Directory="INSTALLFOLDER"
+                  ExeCommand='schtasks.exe /Delete /TN "AOVpn Manager Group Policy Update" /F' />
+
+    <InstallExecuteSequence>
+      <Custom Action="CreateTask" After="InstallFiles" Condition='NOT REMOVE'></Custom>
+      <Custom Action="DeleteTask" Before="RemoveFiles" Condition="Installed"></Custom>
+    </InstallExecuteSequence>
+
+  </Package>
+</Wix>
