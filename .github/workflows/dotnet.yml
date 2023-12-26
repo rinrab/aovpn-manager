@@ -15,11 +15,17 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - name: Setup msbuild
-      uses: microsoft/setup-msbuild@v1.1
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
 
+    - name: Restore NuGet Packages
+      run: dotnet restore
+      
     - name: Build
-      run: msbuild AOVpnManager.sln
+      run: dotnet build
+      
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
       
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.0.0
