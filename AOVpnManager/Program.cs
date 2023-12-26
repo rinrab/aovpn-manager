@@ -4,23 +4,27 @@ namespace AOVpnManager
 {
     public class Program
     {
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
             MinimalEventSource.Log.Started();
-            int exitCode = 0;
+            int exitCode = 1;
 
             try
             {
                 Console.WriteLine("Hello, world!");
+
+                throw new Exception("hello world");
             }
             catch (Exception ex)
             {
-                MinimalEventSource.Log.Exception(ex.ToString());
+                MinimalEventSource.Log.Exception(ex.Message, ex.StackTrace);
+
+                exitCode = 1;
             }
-            finally
-            {
-                MinimalEventSource.Log.Finished(exitCode);
-            }
+
+            MinimalEventSource.Log.Finished(exitCode);
+
+            return exitCode;
         }
     }
 }

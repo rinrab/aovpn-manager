@@ -17,10 +17,10 @@ namespace AOVpnManager
             WriteEvent(2, code);
         }
 
-        [Event(3, Level = EventLevel.Error, Channel = EventChannel.Admin, Message = "AOVpnManager finished with exception {0}")]
-        public void Exception(string message)
+        [Event(3, Level = EventLevel.Error, Channel = EventChannel.Admin, Message = "Unhandled exception: {0}")]
+        public void Exception(string message, string stackTrace)
         {
-            WriteEvent(3, message);
+            WriteEvent(3, message, stackTrace);
         }
 
         public static MinimalEventSource Log = new MinimalEventSource();
