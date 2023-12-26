@@ -17,6 +17,10 @@ jobs:
     
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: | 
+          4.7.2
+          8.0.x
         
     - name: Restore dependencies
       run: dotnet restore
