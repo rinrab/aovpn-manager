@@ -13,7 +13,7 @@ jobs:
   build:
     strategy:
       matrix:
-        architecture: [win-x64, win-x86]
+        arch: [win-x64, win-x86, win-arm64]
 
     runs-on: windows-latest
 
@@ -24,7 +24,7 @@ jobs:
       uses: actions/setup-dotnet@v3
 
     - name: Build
-      run: dotnet build Installer --arch ${{ matrix.architecture }} --configuration Release
+      run: dotnet build Installer --arch ${{ matrix.arch }} --configuration Release
       
     - name: Test
       run: dotnet test --no-build --verbosity normal

@@ -29,7 +29,7 @@ jobs:
 
     strategy:
       matrix:
-        architecture: [x64, x86]
+        arch: [win-x64, win-x86, win-arm64]
 
     runs-on: windows-latest
 
@@ -37,7 +37,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Build
-      run: dotnet build Installer --arch ${{ matrix.architecture }} --configuration Release
+      run: dotnet build Installer --arch ${{ matrix.arch }} --configuration Release
 
     - name: Upload binaries to release
       uses: actions/upload-release-asset@v1
@@ -46,5 +46,5 @@ jobs:
       with:
         upload_url: ${{ needs.create_release.outputs.upload_url }}
         asset_path: .\Installer\bin\Release\en-US\AOVpnManager.msi
-        asset_name: AOVpnManager-${{ matrix.architecture }}.msi
+        asset_name: AOVpnManager-${{ matrix.arch }}.msi
         asset_content_type: application/msi
