@@ -7,7 +7,7 @@ namespace AOVpnManager
         static int Main(string[] args)
         {
             MinimalEventSource.Log.Started();
-            int exitCode = 1;
+            int exitCode = 0;
 
             try
             {
