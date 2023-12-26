@@ -7,6 +7,8 @@ on:
 
 jobs:
   create-release:
+    runs-on: windows-latest
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
