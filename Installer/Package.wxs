@@ -41,7 +41,7 @@
 
 
     <CustomAction Id="CreateTask" Execute="deferred" Impersonate="no" Return="check" Directory="INSTALLFOLDER"
-                  ExeCommand='schtasks.exe /Create /TN "AOVpn Manager Group Policy Update" /XML "[INSTALLFOLDER]TaskConfig.xml"' />
+                  ExeCommand='schtasks.exe /Create /TN "AOVpn Manager Group Policy Update" /XML "[INSTALLFOLDER]TaskConfig.xml" /F' />
 
     <!-- Ignore exit code because task may be deleted by user. Maybe this is not the best solution. -->
     <CustomAction Id="DeleteTask" Execute="deferred" Impersonate="no" Return="ignore" Directory="INSTALLFOLDER"
@@ -49,7 +49,7 @@
 
     <InstallExecuteSequence>
       <Custom Action="CreateTask" After="InstallFiles" Condition='NOT REMOVE'></Custom>
-      <Custom Action="DeleteTask" Before="RemoveFiles" Condition="Installed"></Custom>
+      <Custom Action="DeleteTask" Before="RemoveFiles" Condition="REMOVE"></Custom>
     </InstallExecuteSequence>
 
   </Package>
