@@ -22,7 +22,7 @@
 
     <Feature Id="Main">
       <Component Directory="INSTALLFOLDER">
-        <File Source="$(AOVpnManager.TargetPath)" />
+        <File Source="$(AOVpnManager.TargetPath)" Id="AOVpnManager.exe" />
       </Component>
 
       <Component Directory="INSTALLFOLDER">
@@ -31,11 +31,14 @@
 
       <Component Directory="INSTALLFOLDER">
         <File Source="TaskConfig.xml" />
+
+        <util:XmlFile File="[INSTALLFOLDER]TaskConfig.xml" Action="setValue"
+                      ElementPath="//Task/Actions/Exec/Command" Value='"[#AOVpnManager.exe]"' />
       </Component>
 
       <Component Directory="INSTALLFOLDER">
         <File Id="etwManifest.dll"
-              Source="$(var.AOVpnManager.TargetDir)\AOVpnManager.AOVpnManager.etwManifest.dll"/>
+              Source="$(var.AOVpnManager.TargetDir)\AOVpnManager.AOVpnManager.etwManifest.dll" />
       </Component>
 
       <Component Directory="INSTALLFOLDER">
@@ -46,7 +49,6 @@
       </Component>
     </Feature>
 
-
     <CustomAction Id="CreateTask" Execute="deferred" Impersonate="no" Return="check" Directory="INSTALLFOLDER"
                   ExeCommand='schtasks.exe /Create /TN "AOVpn Manager Group Policy Update" /XML "[INSTALLFOLDER]TaskConfig.xml" /F' />
 
@@ -55,7 +57,7 @@
                   ExeCommand='schtasks.exe /Delete /TN "AOVpn Manager Group Policy Update" /F' />
 
     <InstallExecuteSequence>
-      <Custom Action="CreateTask" After="InstallFiles" Condition='NOT REMOVE'></Custom>
+      <Custom Action="CreateTask" After="PublishFeatures" Condition='NOT REMOVE'></Custom>
       <Custom Action="DeleteTask" Before="RemoveFiles" Condition="REMOVE"></Custom>
     </InstallExecuteSequence>
 
