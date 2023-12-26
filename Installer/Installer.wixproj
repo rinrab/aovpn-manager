@@ -3,12 +3,12 @@
     <OutputName>AOVpnManager</OutputName>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="TaskConfig.xml" />
-  </ItemGroup>
-  <ItemGroup>
+    <PackageReference Include="WixToolset.UI.wixext" Version="4.0.3" />
     <PackageReference Include="WixToolset.Util.wixext" Version="4.0.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AOVpnManager\AOVpnManager.csproj" />
+    <None Include="license.rtf" />
+    <Content Include="TaskConfig.xml" />
   </ItemGroup>
 </Project>
