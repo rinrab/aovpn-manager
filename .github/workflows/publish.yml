@@ -39,3 +39,4 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: Installer\bin\x64\Release\en-US\AOVpnManager.msi
         asset_name: AOVpnManager-${{ matrix.configuration }}.msi
+        asset_content_type: application/msi
