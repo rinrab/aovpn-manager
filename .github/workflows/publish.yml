@@ -6,7 +6,7 @@ on:
       - '*'
 
 jobs:
-  create-release:
+  create_release:
     runs-on: windows-latest
 
     steps:
@@ -20,8 +20,13 @@ jobs:
         release_name: Release ${{ github.ref }}
         draft: false
         prerelease: false
+      
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
 
   build:
+    needs: create_release
+
     strategy:
       matrix:
         architecture: [x64, x86]
@@ -35,12 +40,11 @@ jobs:
       run: dotnet build Installer --arch ${{ matrix.architecture }} --configuration Release
 
     - name: Upload binaries to release
-      id: upload-release-asset 
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ jobs.create-release.create_release.upload_url }}
+        upload_url: ${{ needs.create_release.outputs.upload_url }}
         asset_path: .\Installer\bin\Release\en-US\AOVpnManager.msi
         asset_name: AOVpnManager-${{ matrix.architecture }}.msi
         asset_content_type: application/msi
