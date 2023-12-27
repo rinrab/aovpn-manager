@@ -39,12 +39,14 @@ namespace AOVpnManager
                             }
                         }
 
-                        CimInstance newInstance = new CimInstance(className, namespaceName);
-                        newInstance.CimInstanceProperties.Add(CimProperty.Create("ParentID", "./Vendor/MSFT/VPNv2", CimType.String, CimFlags.Key));
-                        newInstance.CimInstanceProperties.Add(CimProperty.Create("InstanceID", connectionName, CimType.String, CimFlags.Key));
-                        newInstance.CimInstanceProperties.Add(CimProperty.Create("ProfileXML", profile, CimType.String, CimFlags.Property));
+                        using (CimInstance newInstance = new CimInstance(className, namespaceName))
+                        {
+                            newInstance.CimInstanceProperties.Add(CimProperty.Create("ParentID", "./Vendor/MSFT/VPNv2", CimType.String, CimFlags.Key));
+                            newInstance.CimInstanceProperties.Add(CimProperty.Create("InstanceID", connectionName, CimType.String, CimFlags.Key));
+                            newInstance.CimInstanceProperties.Add(CimProperty.Create("ProfileXML", profile, CimType.String, CimFlags.Property));
 
-                        session.CreateInstance(namespaceName, newInstance);
+                            session.CreateInstance(namespaceName, newInstance);
+                        }
 
                         MinimalEventSource.Log.VpnConnectionCreated(connectionName);
                     }
