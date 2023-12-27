@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitions revision="1.0" schemaVersion="1.0">
+    <policyNamespaces>
+        <target prefix="AOVpnManager" namespace="Microsoft.Policies.AOVpnManager" />
+        <using prefix="windows" namespace="Microsoft.Policies.Windows" />
+    </policyNamespaces>
+    <resources minRequiredRevision="1.0" />
+    <categories>
+        <category name="AOVpnManager" displayName="$(string.AOVpnManager)"/>
+    </categories>
+    <policies>
+        <policy name="Profile" class="Machine"
+            displayName="$(string.AOVpnManager_Profile)"
+            explainText="$(string.AOVpnManager_Profile_Explain)"
+            key="software\Policies\AOVpnManager" presentation="$(presentation.Profile)">
+
+            <parentCategory ref="AOVpnManager" />
+            <supportedOn ref="windows:SUPPORTED_Windows_10_0" />
+
+            <elements>
+                <multiText id="Profile" valueName="Profile" required="true" />
+            </elements>
+        </policy>
+    </policies>
+</policyDefinitions>

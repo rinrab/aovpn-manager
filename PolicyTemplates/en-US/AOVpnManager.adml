@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources revision="1.0" schemaVersion="1.0">
+    <displayName>AOVpnManager</displayName>
+    <description>AOVpnManager</description>
+    <resources>
+        <stringTable>
+            <string id="AOVpnManager">AOVpnManager</string>
+            <string id="AOVpnManager_Profile">Vpn Config</string>
+            <string id="AOVpnManager_Profile_Explain">Xml with Always on Vpn Configuration.</string>
+        </stringTable>
+        <presentationTable>
+            <presentation id="Profile">
+              <multiTextBox refId="Profile" />
+            </presentation>
+        </presentationTable>
+    </resources>
+</policyDefinitionResources>
