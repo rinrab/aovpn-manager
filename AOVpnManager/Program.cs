@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 
 namespace AOVpnManager
 {
@@ -11,9 +12,9 @@ namespace AOVpnManager
 
             try
             {
-                Console.WriteLine("Hello, world!");
+                string profile = GetProfile() ?? throw new Exception("Profile not found.");
 
-                throw new Exception("hello world");
+                MinimalEventSource.Log.ProfileChanged(profile);
             }
             catch (Exception ex)
             {
@@ -25,6 +26,22 @@ namespace AOVpnManager
             MinimalEventSource.Log.Finished(exitCode);
 
             return exitCode;
+        }
+
+        static string GetProfile()
+        {
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Policies\AOVpnManager"))
+            {
+                string[] str = (string[])key?.GetValue("Profile");
+                if (str != null)
+                {
+                    return string.Join("\n", str);
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
     }
 }

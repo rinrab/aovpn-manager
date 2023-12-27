@@ -1,4 +1,5 @@
 ﻿using Microsoft.Diagnostics.Tracing;
+using System;
 
 namespace AOVpnManager
 {
@@ -21,6 +22,12 @@ namespace AOVpnManager
         public void Exception(string message, string stackTrace)
         {
             WriteEvent(3, message, stackTrace);
+        }
+
+        [Event(4, Level = EventLevel.Informational, Channel = EventChannel.Operational, Message = "Profile change detected: {0}")]
+        public void ProfileChanged(string profile)
+        {
+            WriteEvent(4, profile);
         }
 
         public static MinimalEventSource Log = new MinimalEventSource();
