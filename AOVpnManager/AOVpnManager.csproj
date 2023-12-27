@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -15,5 +15,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Diagnostics.Tracing.EventSource" Version="1.1.28" />
+    <PackageReference Include="Microsoft.Management.Infrastructure" Version="3.0.0" />
   </ItemGroup>
 </Project>

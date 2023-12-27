@@ -7,10 +7,17 @@
             <string id="AOVpnManager">AOVpnManager</string>
             <string id="AOVpnManager_Profile">Vpn Config</string>
             <string id="AOVpnManager_Profile_Explain">Xml with Always on Vpn Configuration.</string>
+            <string id="AOVpnManager_ConnectionName">Connection Name</string>
+            <string id="AOVpnManager_ConnectionName_Explain">The name of your Vpn connection.</string>
         </stringTable>
         <presentationTable>
             <presentation id="Profile">
               <multiTextBox refId="Profile" />
+            </presentation>
+            <presentation id="ConnectionName">
+              <textBox refId="ConnectionName">
+                <label>The name of your Vpn connection.</label>
+              </textBox>
             </presentation>
         </presentationTable>
     </resources>

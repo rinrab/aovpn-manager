@@ -21,5 +21,17 @@
                 <multiText id="Profile" valueName="Profile" required="true" />
             </elements>
         </policy>
+        <policy name="ConnectionName" class="Machine"
+            displayName="$(string.AOVpnManager_ConnectionName)"
+            explainText="$(string.AOVpnManager_ConnectionName_Explain)"
+            key="software\Policies\AOVpnManager" presentation="$(presentation.ConnectionName)">
+
+            <parentCategory ref="AOVpnManager" />
+            <supportedOn ref="windows:SUPPORTED_Windows_10_0" />
+
+            <elements>
+                <text id="ConnectionName" valueName="ConnectionName" required="true" />
+            </elements>
+        </policy>
     </policies>
 </policyDefinitions>
