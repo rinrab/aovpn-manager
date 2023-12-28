@@ -6,6 +6,9 @@ namespace AOVpnManager
 {
     public class Program
     {
+        const string ClassName = "MDM_VPNv2_01";
+        const string NamespaceName = @"root\cimv2\mdm\dmmap";
+
         static int Main(string[] args)
         {
             MinimalEventSource.Log.Started();
@@ -21,34 +24,7 @@ namespace AOVpnManager
                 }
                 else
                 {
-                    using (CimSession session = CimSession.Create(null))
-                    {
-                        string className = "MDM_VPNv2_01";
-                        string namespaceName = @"root\cimv2\mdm\dmmap";
-
-                        string escapedConnectionName = Uri.EscapeDataString(settings.ConnectionName);
-                        string escapedProfile = SecurityElement.Escape(settings.Profile);
-
-                        foreach (CimInstance insatnce in session.EnumerateInstances(namespaceName, className))
-                        {
-                            if ((string)insatnce.CimInstanceProperties["InstanceID"].Value == escapedConnectionName)
-                            {
-                                // TODO: Do not remove old connection
-                                session.DeleteInstance(insatnce);
-                            }
-                        }
-
-                        using (CimInstance newInstance = new CimInstance(className, namespaceName))
-                        {
-                            newInstance.CimInstanceProperties.Add(CimProperty.Create("ParentID", "./Vendor/MSFT/VPNv2", CimType.String, CimFlags.Key));
-                            newInstance.CimInstanceProperties.Add(CimProperty.Create("InstanceID", escapedConnectionName, CimType.String, CimFlags.Key));
-                            newInstance.CimInstanceProperties.Add(CimProperty.Create("ProfileXML", escapedProfile, CimType.String, CimFlags.Property));
-
-                            session.CreateInstance(namespaceName, newInstance);
-                        }
-
-                        MinimalEventSource.Log.VpnConnectionCreated(escapedConnectionName);
-                    }
+                    CreateVpnConnection(settings);
                 }
             }
             catch (Exception ex)
@@ -63,6 +39,54 @@ namespace AOVpnManager
             MinimalEventSource.Log.Finished(exitCode);
 
             return exitCode;
+        }
+
+        static void CreateVpnConnection(Settings settings)
+        {
+            using (CimSession session = CimSession.Create(null))
+            {
+                string escapedConnectionName = Uri.EscapeDataString(settings.ConnectionName);
+                string escapedProfile = SecurityElement.Escape(settings.Profile);
+
+                using (CimInstance oldInstance = GetVpnConnection(session, escapedConnectionName))
+                {
+                    using (CimInstance newInstance = new CimInstance(ClassName, NamespaceName))
+                    {
+                        newInstance.CimInstanceProperties.Add(CimProperty.Create("ParentID", "./Vendor/MSFT/VPNv2", CimType.String, CimFlags.Key));
+                        newInstance.CimInstanceProperties.Add(CimProperty.Create("InstanceID", escapedConnectionName, CimType.String, CimFlags.Key));
+                        newInstance.CimInstanceProperties.Add(CimProperty.Create("ProfileXML", escapedProfile, CimType.String, CimFlags.Property));
+
+                        if (oldInstance == null)
+                        {
+                            session.CreateInstance(NamespaceName, newInstance);
+
+                            MinimalEventSource.Log.VpnConnectionCreated(settings.ConnectionName);
+                        }
+                        else
+                        {
+                            session.ModifyInstance(NamespaceName, newInstance);
+
+                            MinimalEventSource.Log.VpnConnectionUpdated(settings.ConnectionName);
+                        }
+                    }
+                }
+            }
+        }
+
+        static CimInstance GetVpnConnection(CimSession session, string connectionName)
+        {
+            foreach (CimInstance instance in session.EnumerateInstances(NamespaceName, ClassName))
+            {
+                Console.WriteLine(instance);
+                if ((string)instance.CimInstanceProperties["InstanceID"].Value == connectionName)
+                {
+                    return instance;
+                }
+
+                instance.Dispose();
+            }
+
+            return null;
         }
     }
 }

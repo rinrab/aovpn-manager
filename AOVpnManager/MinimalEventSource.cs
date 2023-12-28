@@ -1,4 +1,5 @@
 ﻿using Microsoft.Diagnostics.Tracing;
+using System;
 
 namespace AOVpnManager
 {
@@ -29,11 +30,17 @@ namespace AOVpnManager
             WriteEvent(4, connectionName);
         }
 
-        [Event(5, Level = EventLevel.Informational, Channel = EventChannel.Operational,
+        [Event(5, Level = EventLevel.Informational, Channel = EventChannel.Operational, Message = "Vpn connection \"{0}\" updated.")]
+        public void VpnConnectionUpdated(string connectionName)
+        {
+            WriteEvent(5, connectionName);
+        }
+
+        [Event(6, Level = EventLevel.Informational, Channel = EventChannel.Operational,
                Message = "Vpn creation skipped because Profile or Connection Name is not set.")]
         public void VpnCreationSkipped()
         {
-            WriteEvent(5);
+            WriteEvent(6);
         }
 
         public static MinimalEventSource Log = new MinimalEventSource();
