@@ -57,6 +57,12 @@ jobs:
         name: AOVpnManager-${{ matrix.arch }}-symbols
         path: .\Installer\bin\Release\en-US\AOVpnManager.wixpdb
 
+  policy_template:
+    needs: create_release
+
+    runs-on: windows-latest
+
+    steps:
     - name: Compress Policy Templates
       run: Compress-Archive -Path .\PolicyTemplates\* -DestinationPath .\PolicyTemplates.zip
 
