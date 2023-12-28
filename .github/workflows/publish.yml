@@ -49,6 +49,12 @@ jobs:
         asset_name: AOVpnManager-${{ matrix.arch }}.msi
         asset_content_type: application/msi
 
+    - name: Upload symbols artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: AOVpnManager-${{ matrix.arch }}-symbols
+        path: .\Installer\bin\Release\en-US\AOVpnManager.wixpdb
+
     - name: Compress Policy Templates
       run: Compress-Archive -Path .\PolicyTemplates\* -DestinationPath .\PolicyTemplates.zip
 
