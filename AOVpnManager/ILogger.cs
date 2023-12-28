@@ -8,5 +8,6 @@
         void VpnConnectionCreated(string connectionName);
         void VpnConnectionUpdated(string connectionName);
         void VpnCreationSkipped();
+        void Trace(string message);
     }
 }

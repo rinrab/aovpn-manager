@@ -33,5 +33,10 @@ namespace AOVpnManager
         {
             Console.WriteLine("Vpn creation skipped because Profile or Connection Name is not set.");
         }
+
+        public void Trace(string message)
+        {
+            Console.WriteLine("{message}");
+        }
     }
 }

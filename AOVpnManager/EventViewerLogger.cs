@@ -41,5 +41,11 @@ namespace AOVpnManager
         {
             WriteEvent(6);
         }
+
+        [Event(7, Level = EventLevel.Informational, Channel = EventChannel.Operational, Message = "{0}")]
+        public void Trace(string message)
+        {
+            WriteEvent(7, message);
+        }
     }
 }

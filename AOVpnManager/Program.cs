@@ -61,7 +61,7 @@ namespace AOVpnManager
                     string escapedConnectionName = Uri.EscapeDataString(settings.ConnectionName);
                     string escapedProfile = SecurityElement.Escape(settings.Profile);
 
-                    using (CimInstance oldInstance = GetVpnConnection(session, escapedConnectionName))
+                    using (CimInstance oldInstance = GetVpnConnection(session, escapedConnectionName, logger))
                     {
                         using (CimInstance newInstance = new CimInstance(ClassName, NamespaceName))
                         {
@@ -91,11 +91,11 @@ namespace AOVpnManager
             }
         }
 
-        static CimInstance GetVpnConnection(CimSession session, string connectionName)
+        static CimInstance GetVpnConnection(CimSession session, string connectionName, ILogger logger)
         {
             foreach (CimInstance instance in session.EnumerateInstances(NamespaceName, ClassName))
             {
-                Console.WriteLine(instance);
+                logger.Trace(instance.ToString());
                 if ((string)instance.CimInstanceProperties["InstanceID"].Value == connectionName)
                 {
                     return instance;
