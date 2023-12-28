@@ -1,5 +1,6 @@
 ﻿using Microsoft.Management.Infrastructure;
 using System;
+using System.Security;
 
 namespace AOVpnManager
 {
@@ -24,13 +25,13 @@ namespace AOVpnManager
                     {
                         string className = "MDM_VPNv2_01";
                         string namespaceName = @"root\cimv2\mdm\dmmap";
-                        settings.ConnectionName = settings.ConnectionName.Replace(" ", "%20");
 
-                        settings.Profile = settings.Profile.Replace("<", "&lt;").Replace(">", "&gt;").Replace("\"", "&quot;");
+                        string escapedConnectionName = Uri.EscapeDataString(settings.ConnectionName);
+                        string escapedProfile = SecurityElement.Escape(settings.Profile);
 
                         foreach (CimInstance insatnce in session.EnumerateInstances(namespaceName, className))
                         {
-                            if ((string)insatnce.CimInstanceProperties["InstanceID"].Value == settings.ConnectionName)
+                            if ((string)insatnce.CimInstanceProperties["InstanceID"].Value == escapedConnectionName)
                             {
                                 // TODO: Do not remove old connection
                                 session.DeleteInstance(insatnce);
@@ -40,13 +41,13 @@ namespace AOVpnManager
                         using (CimInstance newInstance = new CimInstance(className, namespaceName))
                         {
                             newInstance.CimInstanceProperties.Add(CimProperty.Create("ParentID", "./Vendor/MSFT/VPNv2", CimType.String, CimFlags.Key));
-                            newInstance.CimInstanceProperties.Add(CimProperty.Create("InstanceID", settings.ConnectionName, CimType.String, CimFlags.Key));
-                            newInstance.CimInstanceProperties.Add(CimProperty.Create("ProfileXML", settings.Profile, CimType.String, CimFlags.Property));
+                            newInstance.CimInstanceProperties.Add(CimProperty.Create("InstanceID", escapedConnectionName, CimType.String, CimFlags.Key));
+                            newInstance.CimInstanceProperties.Add(CimProperty.Create("ProfileXML", escapedProfile, CimType.String, CimFlags.Property));
 
                             session.CreateInstance(namespaceName, newInstance);
                         }
 
-                        MinimalEventSource.Log.VpnConnectionCreated(settings.ConnectionName);
+                        MinimalEventSource.Log.VpnConnectionCreated(escapedConnectionName);
                     }
                 }
             }
