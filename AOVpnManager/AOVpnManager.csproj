@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <OutputType>Exe</OutputType>
+    <OutDir>..\dist\$(Configuration)\$(MSBuildProjectName)</OutDir>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
