@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AOVpnManager": {
+      "commandName": "Project",
+      "commandLineArgs": "/console"
+    }
+  }
+}

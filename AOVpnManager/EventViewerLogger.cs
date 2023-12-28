@@ -1,10 +1,9 @@
 ﻿using Microsoft.Diagnostics.Tracing;
-using System;
 
 namespace AOVpnManager
 {
     [EventSource(Name = "AOVpnManager", Guid = "73C709D4-5F64-44FD-8402-E4D25FDC90CC")]
-    public sealed class MinimalEventSource : EventSource
+    public sealed class EventViewerLogger : EventSource, ILogger
     {
         [Event(1, Level = EventLevel.Informational, Channel = EventChannel.Operational, Message = "AOVpnManager started")]
         public void Started()
@@ -42,7 +41,5 @@ namespace AOVpnManager
         {
             WriteEvent(6);
         }
-
-        public static MinimalEventSource Log = new MinimalEventSource();
     }
 }

@@ -12,7 +12,17 @@ namespace AOVpnManager
 
         static int Main(string[] args)
         {
-            MinimalEventSource.Log.Started();
+            ILogger logger;
+            if (args.Length > 0 && args[0] == "/console")
+            {
+                logger = new ConsoleLogger();
+            }
+            else
+            {
+                logger = new EventViewerLogger();
+            }
+
+            logger.Started();
             int exitCode = 0;
 
             try
@@ -21,28 +31,28 @@ namespace AOVpnManager
 
                 if (string.IsNullOrEmpty(settings.Profile) || string.IsNullOrEmpty(settings.ConnectionName))
                 {
-                    MinimalEventSource.Log.VpnCreationSkipped();
+                    logger.VpnCreationSkipped();
                 }
                 else
                 {
-                    CreateVpnConnection(settings);
+                    CreateVpnConnection(settings, logger);
                 }
             }
             catch (Exception ex)
             {
-                MinimalEventSource.Log.Exception(ex.Message, ex.StackTrace);
+                logger.Exception(ex.Message, ex.StackTrace);
 
                 Console.WriteLine(ex);
 
                 exitCode = 1;
             }
 
-            MinimalEventSource.Log.Finished(exitCode);
+            logger.Finished(exitCode);
 
             return exitCode;
         }
 
-        static void CreateVpnConnection(Settings settings)
+        static void CreateVpnConnection(Settings settings, ILogger logger)
         {
             using (CimSession session = CimSession.Create(null))
             {
@@ -63,13 +73,13 @@ namespace AOVpnManager
                             {
                                 session.CreateInstance(NamespaceName, newInstance);
 
-                                MinimalEventSource.Log.VpnConnectionCreated(settings.ConnectionName);
+                                logger.VpnConnectionCreated(settings.ConnectionName);
                             }
                             else
                             {
                                 session.ModifyInstance(NamespaceName, newInstance);
 
-                                MinimalEventSource.Log.VpnConnectionUpdated(settings.ConnectionName);
+                                logger.VpnConnectionUpdated(settings.ConnectionName);
                             }
                         }
                     }
