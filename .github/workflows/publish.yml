@@ -63,6 +63,8 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    - uses: actions/checkout@v3
+
     - name: Compress Policy Templates
       run: Compress-Archive -Path .\PolicyTemplates\* -DestinationPath .\PolicyTemplates.zip
 
