@@ -12,7 +12,7 @@ namespace AOVpnManager
         static int Main(string[] args)
         {
             ILogger logger;
-            if (args.Length > 0 && args[0] == "/console")
+            if (args.Length > 0 && string.Equals(args[0], "/console", StringComparison.OrdinalIgnoreCase))
             {
                 logger = new ConsoleLogger();
             }
