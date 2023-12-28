@@ -5,6 +5,8 @@ on:
     tags:
       - '*'
 
+permissions: write-all
+
 jobs:
   create_release:
     runs-on: windows-latest
