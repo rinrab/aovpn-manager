@@ -49,12 +49,18 @@
       </Component>
     </Feature>
 
-    <CustomAction Id="CreateTask" Execute="deferred" Impersonate="no" Return="check" Directory="INSTALLFOLDER"
-                  ExeCommand='schtasks.exe /Create /TN "AOVpn Manager Group Policy Update" /XML "[INSTALLFOLDER]TaskConfig.xml" /F' />
+    <SetProperty Id="CreateTask" Before="CreateTask" Sequence="execute"
+                 Value='"[%ComSpec]" /c schtasks.exe /Create /TN "AOVpn Manager Group Policy Update" /XML "[INSTALLFOLDER]TaskConfig.xml" /F' />
+
+    <CustomAction Id="CreateTask" BinaryRef="Wix4UtilCA_$(sys.BUILDARCHSHORT)"
+                  DllEntry="WixQuietExec" Execute="deferred" Impersonate="no" Return="check" />
+
+    <SetProperty Id="DeleteTask" Before="DeleteTask" Sequence="execute"
+                 Value='"[%ComSpec]" /c schtasks.exe /Delete /TN "AOVpn Manager Group Policy Update" /F' />
 
     <!-- Ignore exit code because task may be deleted by user. Maybe this is not the best solution. -->
-    <CustomAction Id="DeleteTask" Execute="deferred" Impersonate="no" Return="ignore" Directory="INSTALLFOLDER"
-                  ExeCommand='schtasks.exe /Delete /TN "AOVpn Manager Group Policy Update" /F' />
+    <CustomAction Id="DeleteTask" BinaryRef="Wix4UtilCA_$(sys.BUILDARCHSHORT)"
+                  DllEntry="WixQuietExec" Execute="deferred" Impersonate="no" Return="ignore" />
 
     <InstallExecuteSequence>
       <Custom Action="CreateTask" After="PublishFeatures" Condition='NOT REMOVE'></Custom>
