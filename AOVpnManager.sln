@@ -5,7 +5,12 @@ VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{B7DD6F7E-DEF8-4E67-B5B7-07EF123DB6F0}") = "Installer", "Installer\Installer.wixproj", "{90D4CEF4-C547-48CD-BFD5-29C10062C5D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOVpnManager", "AOVpnManager\AOVpnManager.csproj", "{5D56E145-AD0F-4A76-89A5-3BEBE521FE92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOVpnManager", "AOVpnManager\AOVpnManager.csproj", "{5D56E145-AD0F-4A76-89A5-3BEBE521FE92}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{24427106-2E77-4E53-A790-1C021EEBEA7C}"
+	ProjectSection(SolutionItems) = preProject
+		Version.props = Version.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

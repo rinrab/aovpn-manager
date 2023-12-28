@@ -1,4 +1,5 @@
 ﻿<Project Sdk="WixToolset.Sdk/4.0.3">
+  <Import Project="..\Version.props" />
   <PropertyGroup>
     <OutputName>AOVpnManager</OutputName>
   </PropertyGroup>
@@ -11,4 +12,7 @@
     <None Include="license.rtf" />
     <Content Include="TaskConfig.xml" />
   </ItemGroup>
+  <PropertyGroup>
+    <DefineConstants>Version=$(Version)</DefineConstants>
+  </PropertyGroup>
 </Project>
