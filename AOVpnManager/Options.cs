@@ -8,10 +8,17 @@ namespace AOVpnManager
 
         public static Options ReadFromArgs(string[] args)
         {
-            return new Options()
+            Options rv = new Options();
+
+            for (int i = 0; i < args.Length; i++)
             {
-                IsConsole = args.Length > 0 && string.Equals(args[0], "/console", StringComparison.OrdinalIgnoreCase)
-            };
+                if (string.Equals(args[i], "/console", StringComparison.OrdinalIgnoreCase))
+                {
+                    rv.IsConsole = true;
+                }
+            }
+
+            return rv;
         }
     }
 }
