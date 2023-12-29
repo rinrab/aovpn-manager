@@ -1,6 +1,5 @@
 ﻿using Microsoft.Management.Infrastructure;
 using System;
-using System.Runtime;
 using System.Security;
 
 namespace AOVpnManager
