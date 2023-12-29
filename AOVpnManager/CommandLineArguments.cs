@@ -2,11 +2,11 @@
 
 namespace AOVpnManager
 {
-    public class Options
+    public class CommandLineArguments
     {
         public bool IsConsole { get; set; }
 
-        public static Options ReadFromArgs(params string[] args)
+        public static CommandLineArguments Read(params string[] args)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             List<string> flags = new List<string>();
@@ -30,7 +30,7 @@ namespace AOVpnManager
                 }
             }
 
-            return new Options
+            return new CommandLineArguments
             {
                 IsConsole = parameters.GetValueOrDefault("/log", "event") == "console" || flags.Contains("/console")
             };
