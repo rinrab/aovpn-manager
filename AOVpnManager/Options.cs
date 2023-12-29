@@ -1,10 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AOVpnManager
 {
     public class Options
     {
         public bool IsConsole { get; set; }
+
+        public static Options ReadFromArgs(string args)
+        {
+            // TODO: quoted strings?
+            return ReadFromArgs(args.Split(new char[] { ' ', '\t', '\n' }, StringSplitOptions.RemoveEmptyEntries));
+        }
 
         public static Options ReadFromArgs(string[] args)
         {
