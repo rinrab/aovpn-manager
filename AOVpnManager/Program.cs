@@ -36,19 +36,19 @@ namespace AOVpnManager
                     string escapedConnectionName = Uri.EscapeDataString(settings.ConnectionName);
                     string escapedProfile = SecurityElement.Escape(settings.Profile);
 
-                    using (CimSession session = CimSession.Create(null))
+                    using (VpnManager vpnManager = new VpnManager())
                     {
                         try
                         {
-                            using (CimInstance oldInstance = VpnManager.GetVpnConnection(session, escapedConnectionName, logger))
+                            using (CimInstance oldInstance = vpnManager.GetVpnConnection(escapedConnectionName, logger))
                             {
                                 if (oldInstance == null)
                                 {
-                                    VpnManager.CreateVpnConnection(session, escapedConnectionName, escapedProfile, logger);
+                                    vpnManager.CreateVpnConnection(escapedConnectionName, escapedProfile, logger);
                                 }
                                 else
                                 {
-                                    VpnManager.UpdateVpnConnection(session, escapedConnectionName, escapedProfile, logger);
+                                    vpnManager.UpdateVpnConnection(escapedConnectionName, escapedProfile, logger);
                                 }
                             }
                         }

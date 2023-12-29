@@ -1,13 +1,21 @@
 ﻿using Microsoft.Management.Infrastructure;
+using System;
 
 namespace AOVpnManager
 {
-    public class VpnManager
+    public class VpnManager : IDisposable
     {
         const string ClassName = "MDM_VPNv2_01";
         const string NamespaceName = @"root\cimv2\mdm\dmmap";
 
-        public static void CreateVpnConnection(CimSession session, string escapedConnectionName, string escapedProfile, ILogger logger)
+        private readonly CimSession session;
+
+        public VpnManager()
+        {
+            session = CimSession.Create(null);
+        }
+
+        public void CreateVpnConnection(string escapedConnectionName, string escapedProfile, ILogger logger)
         {
             using (CimInstance newInstance = new CimInstance(ClassName, NamespaceName))
             {
@@ -21,7 +29,7 @@ namespace AOVpnManager
             }
         }
 
-        public static void UpdateVpnConnection(CimSession session, string escapedConnectionName, string escapedProfile, ILogger logger)
+        public void UpdateVpnConnection(string escapedConnectionName, string escapedProfile, ILogger logger)
         {
             using (CimInstance newInstance = new CimInstance(ClassName, NamespaceName))
             {
@@ -35,7 +43,7 @@ namespace AOVpnManager
             }
         }
 
-        public static CimInstance GetVpnConnection(CimSession session, string connectionName, ILogger logger)
+        public CimInstance GetVpnConnection(string connectionName, ILogger logger)
         {
             foreach (CimInstance instance in session.EnumerateInstances(NamespaceName, ClassName))
             {
@@ -49,6 +57,11 @@ namespace AOVpnManager
             }
 
             return null;
+        }
+
+        public void Dispose()
+        {
+            session.Dispose();
         }
     }
 }
