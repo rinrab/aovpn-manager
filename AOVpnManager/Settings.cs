@@ -17,10 +17,17 @@ namespace AOVpnManager
         {
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Policies\AOVpnManager"))
             {
-                string[] profile = (string[])key?.GetValue("Profile");
-                string connectionName = (string)key?.GetValue("ConnectionName");
+                if (key != null)
+                {
+                    string[] profile = (string[])key.GetValue("Profile");
+                    string connectionName = (string)key.GetValue("ConnectionName");
 
-                return new Settings((profile == null) ? null : string.Join("\n", profile), connectionName);
+                    return new Settings((profile == null) ? null : string.Join("\n", profile), connectionName);
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
     }
