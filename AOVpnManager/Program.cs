@@ -33,22 +33,19 @@ namespace AOVpnManager
                 }
                 else
                 {
-                    string escapedConnectionName = Uri.EscapeDataString(settings.ConnectionName);
-                    string escapedProfile = SecurityElement.Escape(settings.Profile);
-
                     using (VpnManager vpnManager = new VpnManager())
                     {
                         try
                         {
-                            using (CimInstance oldInstance = vpnManager.GetVpnConnection(escapedConnectionName, logger))
+                            using (CimInstance oldInstance = vpnManager.GetVpnConnection(settings.ConnectionName, logger))
                             {
                                 if (oldInstance == null)
                                 {
-                                    vpnManager.CreateVpnConnection(escapedConnectionName, escapedProfile, logger);
+                                    vpnManager.CreateVpnConnection(settings.ConnectionName, settings.Profile, logger);
                                 }
                                 else
                                 {
-                                    vpnManager.UpdateVpnConnection(escapedConnectionName, escapedProfile, logger);
+                                    vpnManager.UpdateVpnConnection(settings.ConnectionName, settings.Profile, logger);
                                 }
                             }
                         }
