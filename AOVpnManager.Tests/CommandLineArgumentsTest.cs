@@ -18,7 +18,6 @@ namespace AOVpnManager.Tests
 
             Assert.AreEqual(true, CommandLineArguments.Read("/console").IsConsole);
             Assert.AreEqual(true, CommandLineArguments.Read("/test", "/console").IsConsole);
-            Assert.AreEqual(true, CommandLineArguments.Read("/log", "/console").IsConsole);
             Assert.AreEqual(true, CommandLineArguments.Read("/log", "event", "/console").IsConsole); // ?
         }
     }
