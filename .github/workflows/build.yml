@@ -27,7 +27,7 @@ jobs:
       run: dotnet build Installer --arch ${{ matrix.arch }} --configuration Release
       
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test AOVpnManager.Tests
 
     - name: Upload build artifact
       uses: actions/upload-artifact@v3
