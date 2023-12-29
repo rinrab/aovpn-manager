@@ -22,6 +22,7 @@ namespace AOVpnManager
                     else
                     {
                         parameters.Add(args[i].ToLower(), args[i + 1].ToLower());
+                        i++;
                     }
                 }
                 else
