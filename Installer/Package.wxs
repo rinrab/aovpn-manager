@@ -13,7 +13,7 @@
 
     <MediaTemplate EmbedCab="yes" />
 
-    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+    <MajorUpgrade AllowDowngrades="yes" />
 
     <StandardDirectory Id="ProgramFiles6432Folder">
       <Directory Id="INSTALLFOLDER" Name="!(bind.Property.ProductName)" />
