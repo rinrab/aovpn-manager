@@ -28,7 +28,7 @@ namespace AOVpnManager
 
             try
             {
-                var settings = Settings.Load();
+                var settings = Settings.Read();
 
                 if (string.IsNullOrEmpty(settings.Profile) || string.IsNullOrEmpty(settings.ConnectionName))
                 {

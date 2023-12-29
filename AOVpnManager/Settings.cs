@@ -13,7 +13,7 @@ namespace AOVpnManager
             ConnectionName = connectionName;
         }
 
-        public static Settings Load()
+        public static Settings Read()
         {
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Policies\AOVpnManager"))
             {
