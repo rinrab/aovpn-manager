@@ -2,7 +2,7 @@
   <Import Project="..\Version.props" />
   <PropertyGroup>
     <OutputName>AOVpnManager</OutputName>
-    <OutDir>..\dist\$(Configuration)\$(MSBuildProjectName)</OutDir>
+    <OutDir>..\out\$(Configuration)\$(MSBuildProjectName)</OutDir>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="WixToolset.UI.wixext" Version="4.0.3" />

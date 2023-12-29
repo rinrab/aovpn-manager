@@ -47,7 +47,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ needs.create_release.outputs.upload_url }}
-        asset_path: .\dist\Release\Installer\en-US\AOVpnManager.msi
+        asset_path: .\out\Release\Installer\en-US\AOVpnManager.msi
         asset_name: AOVpnManager-${{ matrix.arch }}.msi
         asset_content_type: application/msi
 
@@ -55,7 +55,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: AOVpnManager-${{ matrix.arch }}
-        path: .\dist\Release
+        path: .\out\Release
 
   policy_template:
     needs: create_release
