@@ -16,7 +16,7 @@ namespace AOVpnManager
             session = CimSession.Create(null);
         }
 
-        public void CreateVpnConnection(string connectionName, string profile, ILogger logger)
+        public void CreateVpnConnection(string connectionName, string profile)
         {
             using (CimInstance newInstance = new CimInstance(ClassName, NamespaceName))
             {
@@ -25,12 +25,10 @@ namespace AOVpnManager
                 newInstance.CimInstanceProperties.Add(CimProperty.Create("ProfileXML", EscapeProfileXml(profile), CimType.String, CimFlags.Property));
 
                 session.CreateInstance(NamespaceName, newInstance);
-
-                logger.VpnConnectionCreated(connectionName);
             }
         }
 
-        public void UpdateVpnConnection(string connectionName, string profile, ILogger logger)
+        public void UpdateVpnConnection(string connectionName, string profile)
         {
             using (CimInstance newInstance = new CimInstance(ClassName, NamespaceName))
             {
@@ -39,18 +37,15 @@ namespace AOVpnManager
                 newInstance.CimInstanceProperties.Add(CimProperty.Create("ProfileXML", EscapeProfileXml(profile), CimType.String, CimFlags.Property));
 
                 session.ModifyInstance(NamespaceName, newInstance);
-
-                logger.VpnConnectionCreated(connectionName);
             }
         }
 
-        public CimInstance GetVpnConnection(string connectionName, ILogger logger)
+        public CimInstance GetVpnConnection(string connectionName)
         {
             string escapedConnectionName = EscapeConnectionName(connectionName);
 
             foreach (CimInstance instance in session.EnumerateInstances(NamespaceName, ClassName))
             {
-                logger.Trace(instance.ToString());
                 if ((string)instance.CimInstanceProperties["InstanceID"].Value == escapedConnectionName)
                 {
                     return instance;

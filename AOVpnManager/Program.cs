@@ -36,15 +36,17 @@ namespace AOVpnManager
                     {
                         try
                         {
-                            using (CimInstance oldInstance = vpnManager.GetVpnConnection(settings.ConnectionName, logger))
+                            using (CimInstance oldInstance = vpnManager.GetVpnConnection(settings.ConnectionName))
                             {
                                 if (oldInstance == null)
                                 {
-                                    vpnManager.CreateVpnConnection(settings.ConnectionName, settings.Profile, logger);
+                                    vpnManager.CreateVpnConnection(settings.ConnectionName, settings.Profile);
+                                    logger.VpnConnectionCreated(settings.ConnectionName);
                                 }
                                 else
                                 {
-                                    vpnManager.UpdateVpnConnection(settings.ConnectionName, settings.Profile, logger);
+                                    vpnManager.UpdateVpnConnection(settings.ConnectionName, settings.Profile);
+                                    logger.VpnConnectionUpdated(settings.ConnectionName);
                                 }
                             }
                         }
