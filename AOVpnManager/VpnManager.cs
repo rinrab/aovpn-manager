@@ -20,10 +20,8 @@ namespace AOVpnManager
         {
             using (CimInstance newInstance = new CimInstance(ClassName, NamespaceName))
             {
-                newInstance.CimInstanceProperties.Add(CimProperty.Create("ParentID", "./Vendor/MSFT/VPNv2", CimType.String, CimFlags.Key));
-                newInstance.CimInstanceProperties.Add(CimProperty.Create("InstanceID", EscapeConnectionName(connectionName), CimType.String, CimFlags.Key));
-                newInstance.CimInstanceProperties.Add(CimProperty.Create("ProfileXML", EscapeProfileXml(profile), CimType.String, CimFlags.Property));
-
+                AddKeyPropertiesToVpnConnection(newInstance, connectionName);
+                AddValuePropertiesToVpnConnection(newInstance, profile);
                 session.CreateInstance(NamespaceName, newInstance);
             }
         }
@@ -32,10 +30,8 @@ namespace AOVpnManager
         {
             using (CimInstance newInstance = new CimInstance(ClassName, NamespaceName))
             {
-                newInstance.CimInstanceProperties.Add(CimProperty.Create("ParentID", "./Vendor/MSFT/VPNv2", CimType.String, CimFlags.Key));
-                newInstance.CimInstanceProperties.Add(CimProperty.Create("InstanceID", EscapeConnectionName(connectionName), CimType.String, CimFlags.Key));
-                newInstance.CimInstanceProperties.Add(CimProperty.Create("ProfileXML", EscapeProfileXml(profile), CimType.String, CimFlags.Property));
-
+                AddKeyPropertiesToVpnConnection(newInstance, connectionName);
+                AddValuePropertiesToVpnConnection(newInstance, profile);
                 session.ModifyInstance(NamespaceName, newInstance);
             }
         }
@@ -55,6 +51,17 @@ namespace AOVpnManager
             }
 
             return null;
+        }
+
+        private void AddKeyPropertiesToVpnConnection(CimInstance instance, string connectionName)
+        {
+            instance.CimInstanceProperties.Add(CimProperty.Create("ParentID", "./Vendor/MSFT/VPNv2", CimType.String, CimFlags.Key));
+            instance.CimInstanceProperties.Add(CimProperty.Create("InstanceID", EscapeConnectionName(connectionName), CimType.String, CimFlags.Key));
+        }
+
+        private void AddValuePropertiesToVpnConnection(CimInstance instance, string profileXml)
+        {
+            instance.CimInstanceProperties.Add(CimProperty.Create("ProfileXML", EscapeProfileXml(profileXml), CimType.String, CimFlags.Property));
         }
 
         private string EscapeConnectionName(string connectionName)
