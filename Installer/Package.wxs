@@ -25,10 +25,6 @@
       </Component>
 
       <Component Directory="INSTALLFOLDER">
-        <File Source="$(var.AOVpnManager.TargetDir)\Microsoft.Diagnostics.Tracing.EventSource.dll" />
-      </Component>
-
-      <Component Directory="INSTALLFOLDER">
         <File Source="TaskConfig.xml" />
 
         <util:XmlFile File="[INSTALLFOLDER]TaskConfig.xml" Action="setValue"

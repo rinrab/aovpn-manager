@@ -1,4 +1,4 @@
-﻿using Microsoft.Diagnostics.Tracing;
+﻿using System.Diagnostics.Tracing;
 
 namespace AOVpnManager
 {
