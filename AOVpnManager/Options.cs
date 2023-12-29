@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AOVpnManager
 {
@@ -7,13 +6,7 @@ namespace AOVpnManager
     {
         public bool IsConsole { get; set; }
 
-        public static Options ReadFromArgs(string args)
-        {
-            // TODO: quoted strings?
-            return ReadFromArgs(args.Split(new char[] { ' ', '\t', '\n' }, StringSplitOptions.RemoveEmptyEntries));
-        }
-
-        public static Options ReadFromArgs(string[] args)
+        public static Options ReadFromArgs(params string[] args)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             List<string> flags = new List<string>();
