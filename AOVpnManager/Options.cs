@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace AOVpnManager
 {
@@ -8,17 +8,32 @@ namespace AOVpnManager
 
         public static Options ReadFromArgs(string[] args)
         {
-            Options rv = new Options();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            List<string> flags = new List<string>();
 
             for (int i = 0; i < args.Length; i++)
             {
-                if (string.Equals(args[i], "/console", StringComparison.OrdinalIgnoreCase))
+                if (i + 1 < args.Length)
                 {
-                    rv.IsConsole = true;
+                    if (args[i + 1].StartsWith("/"))
+                    {
+                        flags.Add(args[i]);
+                    }
+                    else
+                    {
+                        parameters.Add(args[i].ToLower(), args[i + 1].ToLower());
+                    }
+                }
+                else
+                {
+                    flags.Add(args[i].ToLower());
                 }
             }
 
-            return rv;
+            return new Options
+            {
+                IsConsole = parameters.GetValueOrDefault("/log", "event") == "console" || flags.Contains("/console")
+            };
         }
     }
 }
