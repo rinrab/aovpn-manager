@@ -6,7 +6,7 @@ namespace AOVpnManager
     {
         public void Exception(string message, string stackTrace)
         {
-            Console.WriteLine("Unhandled exception: {0}", message, stackTrace);
+            Console.WriteLine("Unhandled exception: {0}\n{1}", message, stackTrace);
         }
 
         public void Started()
