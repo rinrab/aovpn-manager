@@ -1,7 +1,6 @@
 ﻿<Project Sdk="WixToolset.Sdk/4.0.3">
   <PropertyGroup>
     <OutputName>AOVpnManager</OutputName>
-    <OutDir>..\out\$(Configuration)\$(MSBuildProjectName)</OutDir>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="WixToolset.UI.wixext" Version="4.0.3" />
