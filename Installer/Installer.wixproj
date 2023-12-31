@@ -1,5 +1,4 @@
 ﻿<Project Sdk="WixToolset.Sdk/4.0.3">
-  <Import Project="..\Version.props" />
   <PropertyGroup>
     <OutputName>AOVpnManager</OutputName>
     <OutDir>..\out\$(Configuration)\$(MSBuildProjectName)</OutDir>
