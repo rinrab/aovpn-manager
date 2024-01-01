@@ -20,14 +20,14 @@ namespace AOVpnManager
                 logger = new EventViewerLogger();
             }
 
-            PolicySettingsProvider policyProvider = new PolicySettingsProvider(Registry.LocalMachine, @"SOFTWARE\Policies\AOVpnManager");
+            GroupPolicyProvider policyProvider = new GroupPolicyProvider(Registry.LocalMachine, @"SOFTWARE\Policies\AOVpnManager");
 
             logger.Started();
             int exitCode = 0;
 
             try
             {
-                PolicySettings settings = policyProvider.ReadSettings();
+                GroupPolicySettings settings = policyProvider.ReadSettings();
 
                 if (string.IsNullOrEmpty(settings.Profile) || string.IsNullOrEmpty(settings.ConnectionName))
                 {

@@ -2,18 +2,18 @@
 
 namespace AOVpnManager
 {
-    public class PolicySettingsProvider
+    public class GroupPolicyProvider
     {
         private readonly RegistryKey root;
         private readonly string path;
 
-        public PolicySettingsProvider(RegistryKey root, string path)
+        public GroupPolicyProvider(RegistryKey root, string path)
         {
             this.root = root;
             this.path = path;
         }
 
-        public PolicySettings ReadSettings()
+        public GroupPolicySettings ReadSettings()
         {
             using (RegistryKey key = root.OpenSubKey(path))
             {
@@ -22,7 +22,7 @@ namespace AOVpnManager
                     string[] profile = (string[])key.GetValue("Profile");
                     string connectionName = (string)key.GetValue("ConnectionName");
 
-                    return new PolicySettings((profile == null) ? null : string.Join("\n", profile), connectionName);
+                    return new GroupPolicySettings((profile == null) ? null : string.Join("\n", profile), connectionName);
                 }
                 else
                 {
