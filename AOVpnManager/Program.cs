@@ -39,6 +39,8 @@ namespace AOVpnManager
                     {
                         using (CimInstance oldInstance = vpnManager.GetVpnConnection(settings.ConnectionName))
                         {
+                            logger.Trace("oldInstance: " + oldInstance?.ToString());
+
                             if (oldInstance == null)
                             {
                                 vpnManager.CreateVpnConnection(settings.ConnectionName, settings.Profile);
