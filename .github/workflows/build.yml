@@ -33,4 +33,16 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: AOVpnManager-${{ matrix.arch }}
-        path: .\out\Release
+        path: .\out\Release\Installer\en-US\AOVpnManager.msi
+
+  plicy_templates:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Upload policy templates to artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: Policy Templates
+        path: .\PolicyTemplates
