@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 
 namespace AOVpnManager
@@ -18,7 +19,7 @@ namespace AOVpnManager
             {
                 if (!LeaveCriticalPolicySection(handle))
                 {
-                    throw new Exception("LeaveCriticalPolicySection failed");
+                    throw new Exception(string.Format("LeaveCriticalPolicySection failed with code: {0}", Marshal.GetLastWin32Error()));
                 }
             }
 
@@ -32,7 +33,7 @@ namespace AOVpnManager
 
             if (handle == IntPtr.Zero)
             {
-                throw new Exception("EnterCriticalPolicySection failed");
+                throw new Exception(string.Format("EnterCriticalPolicySection failed with code: {0}", Marshal.GetLastWin32Error()));
             }
             else
             {
