@@ -20,7 +20,7 @@ namespace AOVpnManager
                 logger = new EventViewerLogger();
             }
 
-            GroupPolicyProvider policyProvider = new GroupPolicyProvider(Registry.LocalMachine, @"SOFTWARE\Policies\AOVpnManager");
+            IGroupPolicyProvider policyProvider = new GroupPolicyProvider(Registry.LocalMachine, @"SOFTWARE\Policies\AOVpnManager");
 
             logger.Started();
             int exitCode = 0;

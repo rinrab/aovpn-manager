@@ -2,7 +2,7 @@
 
 namespace AOVpnManager
 {
-    public class GroupPolicyProvider
+    public class GroupPolicyProvider : IGroupPolicyProvider
     {
         private readonly RegistryKey root;
         private readonly string path;
