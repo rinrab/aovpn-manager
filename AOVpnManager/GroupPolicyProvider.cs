@@ -26,7 +26,7 @@ namespace AOVpnManager
                 }
                 else
                 {
-                    return null;
+                    return new GroupPolicySettings(null, null);
                 }
             }
         }
