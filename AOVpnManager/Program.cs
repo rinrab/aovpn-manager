@@ -33,19 +33,26 @@ namespace AOVpnManager
 
                 using (VpnManager vpnManager = new VpnManager())
                 {
-                    if (lastConnectionName != null && lastConnectionName != settings.ConnectionName)
+                    if (string.IsNullOrEmpty(settings.Profile))
                     {
-                        vpnManager.DeleteVpnConnection(lastConnectionName);
-                        logger.VpnConnectionDeleted(lastConnectionName);
-                        stateManager.UpdateLastConnectionName(null);
-                    }
+                        if (lastConnectionName != null)
+                        {
+                            vpnManager.DeleteVpnConnection(lastConnectionName);
+                            logger.VpnConnectionDeleted(lastConnectionName);
+                            stateManager.UpdateLastConnectionName(null);
+                        }
 
-                    if (string.IsNullOrEmpty(settings.Profile) || string.IsNullOrEmpty(settings.ConnectionName))
-                    {
                         logger.VpnCreationSkipped();
                     }
                     else
                     {
+                        if (lastConnectionName != null && lastConnectionName != settings.ConnectionName)
+                        {
+                            vpnManager.DeleteVpnConnection(lastConnectionName);
+                            logger.VpnConnectionDeleted(lastConnectionName);
+                            stateManager.UpdateLastConnectionName(null);
+                        }
+
                         using (CimInstance oldInstance = vpnManager.GetVpnConnection(settings.ConnectionName))
                         {
                             logger.Trace("oldInstance: " + oldInstance?.ToString());

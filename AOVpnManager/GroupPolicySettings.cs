@@ -1,4 +1,4 @@
-namespace AOVpnManager
+﻿namespace AOVpnManager
 {
     public class GroupPolicySettings
     {
