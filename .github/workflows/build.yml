@@ -35,7 +35,7 @@ jobs:
         name: AOVpnManager-${{ matrix.arch }}
         path: .\out\Release\Installer\en-US\AOVpnManager.msi
 
-  plicy_templates:
+  policy_templates:
     runs-on: windows-latest
 
     steps:
