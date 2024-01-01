@@ -1,4 +1,5 @@
 ﻿using Microsoft.Management.Infrastructure;
+using Microsoft.Win32;
 using System;
 
 namespace AOVpnManager
@@ -19,12 +20,14 @@ namespace AOVpnManager
                 logger = new EventViewerLogger();
             }
 
+            PolicySettingsProvider policyProvider = new PolicySettingsProvider(Registry.LocalMachine, @"SOFTWARE\Policies\AOVpnManager");
+
             logger.Started();
             int exitCode = 0;
 
             try
             {
-                var settings = PolicySettings.Read();
+                PolicySettings settings = policyProvider.ReadSettings();
 
                 if (string.IsNullOrEmpty(settings.Profile) || string.IsNullOrEmpty(settings.ConnectionName))
                 {
