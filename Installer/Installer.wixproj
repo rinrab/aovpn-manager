@@ -1,6 +1,7 @@
 ﻿<Project Sdk="WixToolset.Sdk/4.0.3">
   <PropertyGroup>
     <OutputName>AOVpnManager</OutputName>
+    <SuppressIces>ICE61</SuppressIces>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="WixToolset.UI.wixext" Version="4.0.3" />
