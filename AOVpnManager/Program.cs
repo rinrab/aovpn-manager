@@ -21,6 +21,7 @@ namespace AOVpnManager
             }
 
             IGroupPolicyProvider policyProvider = new GroupPolicyProvider(Registry.LocalMachine, @"SOFTWARE\Policies\AOVpnManager");
+            IStateManager stateManager = new StateManager(Registry.LocalMachine, @"SOFTWARE\AOVpnManager");
 
             logger.Started();
             int exitCode = 0;
@@ -28,6 +29,7 @@ namespace AOVpnManager
             try
             {
                 GroupPolicySettings settings = policyProvider.ReadSettings();
+                string lastConnectionName = stateManager.ReadLastConnectionName();
 
                 if (string.IsNullOrEmpty(settings.Profile) || string.IsNullOrEmpty(settings.ConnectionName))
                 {
@@ -37,6 +39,7 @@ namespace AOVpnManager
                 {
                     using (VpnManager vpnManager = new VpnManager())
                     {
+                        stateManager.UpdateLastConnectionName(settings.ConnectionName);
                         using (CimInstance oldInstance = vpnManager.GetVpnConnection(settings.ConnectionName))
                         {
                             logger.Trace("oldInstance: " + oldInstance?.ToString());
