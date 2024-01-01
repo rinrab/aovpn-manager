@@ -29,6 +29,11 @@ namespace AOVpnManager
             Console.WriteLine("Vpn connection \"{0}\" updated.", connectionName);
         }
 
+        public void VpnConnectionDeleted(string connectionName)
+        {
+            Console.WriteLine("Vpn connection \"{0}\" deleted.", connectionName);
+        }
+
         public void VpnCreationSkipped()
         {
             Console.WriteLine("Vpn creation skipped because Profile or Connection Name is not set.");

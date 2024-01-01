@@ -31,15 +31,21 @@ namespace AOVpnManager
                 GroupPolicySettings settings = policyProvider.ReadSettings();
                 string lastConnectionName = stateManager.ReadLastConnectionName();
 
-                if (string.IsNullOrEmpty(settings.Profile) || string.IsNullOrEmpty(settings.ConnectionName))
+                using (VpnManager vpnManager = new VpnManager())
                 {
-                    logger.VpnCreationSkipped();
-                }
-                else
-                {
-                    using (VpnManager vpnManager = new VpnManager())
+                    if (lastConnectionName != null && lastConnectionName != settings.ConnectionName)
                     {
-                        stateManager.UpdateLastConnectionName(settings.ConnectionName);
+                        vpnManager.DeleteVpnConnection(lastConnectionName);
+                        logger.VpnConnectionDeleted(lastConnectionName);
+                        stateManager.UpdateLastConnectionName(null);
+                    }
+
+                    if (string.IsNullOrEmpty(settings.Profile) || string.IsNullOrEmpty(settings.ConnectionName))
+                    {
+                        logger.VpnCreationSkipped();
+                    }
+                    else
+                    {
                         using (CimInstance oldInstance = vpnManager.GetVpnConnection(settings.ConnectionName))
                         {
                             logger.Trace("oldInstance: " + oldInstance?.ToString());
@@ -54,6 +60,8 @@ namespace AOVpnManager
                                 vpnManager.UpdateVpnConnection(settings.ConnectionName, settings.Profile);
                                 logger.VpnConnectionUpdated(settings.ConnectionName);
                             }
+
+                            stateManager.UpdateLastConnectionName(settings.ConnectionName);
                         }
                     }
                 }

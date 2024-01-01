@@ -36,6 +36,15 @@ namespace AOVpnManager
             }
         }
 
+        public void DeleteVpnConnection(string connectionName)
+        {
+            using (CimInstance queryInstance = new CimInstance(ClassName, NamespaceName))
+            {
+                AddKeyPropertiesToVpnConnection(queryInstance, connectionName);
+                session.DeleteInstance(queryInstance);
+            }
+        }
+
         public CimInstance GetVpnConnection(string connectionName)
         {
             string escapedConnectionName = EscapeConnectionName(connectionName);
