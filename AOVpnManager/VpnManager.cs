@@ -82,17 +82,17 @@ namespace AOVpnManager
             instance.CimInstanceProperties.Add(CimProperty.Create(PropertyNames.ProfileXml, EscapeProfileXml(profileXml), CimType.String, CimFlags.Property));
         }
 
-        private string EscapeConnectionName(string connectionName)
+        private static string EscapeConnectionName(string connectionName)
         {
             return Uri.EscapeDataString(connectionName);
         }
 
-        private string UnescapeConnectionName(string connectionName)
+        private static string UnescapeConnectionName(string connectionName)
         {
             return Uri.UnescapeDataString(connectionName);
         }
 
-        private string EscapeProfileXml(string profileXml)
+        private static string EscapeProfileXml(string profileXml)
         {
             return SecurityElement.Escape(profileXml);
         }
