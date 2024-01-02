@@ -1,6 +1,7 @@
 ﻿using Microsoft.Management.Infrastructure;
 using Microsoft.Win32;
 using System;
+using System.Linq;
 
 namespace AOVpnManager
 {
@@ -53,11 +54,12 @@ namespace AOVpnManager
                             stateManager.UpdateLastConnectionName(null);
                         }
 
-                        VpnConnectionInfo oldInstance = vpnManager.GetVpnConnection(settings.ConnectionName);
+                        VpnConnectionInfo oldConnection = vpnManager.EnumarateVpnConnections().FirstOrDefault(
+                            connection => connection.ConnectionName == settings.ConnectionName);
 
-                        logger.Trace("oldInstance: " + oldInstance?.ToString());
+                        logger.Trace("oldConnection: " + oldConnection?.ToString());
 
-                        if (oldInstance == null)
+                        if (oldConnection == null)
                         {
                             vpnManager.CreateVpnConnection(settings.ConnectionName, settings.Profile);
                             logger.VpnConnectionCreated(settings.ConnectionName);

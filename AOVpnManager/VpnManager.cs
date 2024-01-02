@@ -1,5 +1,6 @@
 ﻿using Microsoft.Management.Infrastructure;
 using System;
+using System.Collections.Generic;
 using System.Security;
 
 namespace AOVpnManager
@@ -50,23 +51,17 @@ namespace AOVpnManager
             }
         }
 
-        public VpnConnectionInfo GetVpnConnection(string connectionName)
+        public IEnumerable<VpnConnectionInfo> EnumarateVpnConnections()
         {
-            string escapedConnectionName = EscapeConnectionName(connectionName);
-
             foreach (CimInstance instance in session.EnumerateInstances(NamespaceName, ClassName))
             {
                 using (instance)
                 {
-                    if ((string)instance.CimInstanceProperties["InstanceID"].Value == escapedConnectionName)
-                    {
-                        return new VpnConnectionInfo((string)instance.CimInstanceProperties["InstanceID"].Value,
-                                                     (string)instance.CimInstanceProperties["ProfileXML"].Value);
-                    }
+                    string connectionName = UnescapeConnectionName((string)instance.CimInstanceProperties["InstanceID"].Value);
+                    string profileXml = (string)instance.CimInstanceProperties["ProfileXML"].Value;
+                    yield return new VpnConnectionInfo(connectionName, profileXml);
                 }
             }
-
-            return null;
         }
 
         private void AddKeyPropertiesToVpnConnection(CimInstance instance, string connectionName)
@@ -83,6 +78,11 @@ namespace AOVpnManager
         private string EscapeConnectionName(string connectionName)
         {
             return Uri.EscapeDataString(connectionName);
+        }
+
+        private string UnescapeConnectionName(string connectionName)
+        {
+            return Uri.UnescapeDataString(connectionName);
         }
 
         private string EscapeProfileXml(string profileXml)
