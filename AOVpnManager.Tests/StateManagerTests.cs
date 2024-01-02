@@ -7,7 +7,7 @@ namespace AOVpnManager.Tests
     public class StateManagerTests
     {
         [TestMethod]
-        public void LastConnctionName()
+        public void LastConnectionName()
         {
             IStateManager stateManager = new StateManager(Registry.CurrentUser, @"Test\AOVpnManager");
 
