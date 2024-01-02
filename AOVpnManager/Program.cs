@@ -34,8 +34,6 @@ namespace AOVpnManager
                             logger.VpnConnectionDeleted(lastConnectionName);
                             stateManager.UpdateLastConnectionName(null);
                         }
-
-                        logger.VpnCreationSkipped();
                     }
                     else
                     {

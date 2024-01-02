@@ -34,11 +34,6 @@ namespace AOVpnManager
             Console.WriteLine("Vpn connection \"{0}\" deleted.", connectionName);
         }
 
-        public void VpnCreationSkipped()
-        {
-            Console.WriteLine("Vpn creation skipped because Profile or Connection Name is not set.");
-        }
-
         public void Trace(string message)
         {
             Console.WriteLine("{message}");

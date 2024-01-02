@@ -41,17 +41,10 @@ namespace AOVpnManager
             WriteEvent(6, connectionName);
         }
 
-        [Event(7, Level = EventLevel.Informational, Channel = EventChannel.Operational,
-               Message = "Vpn creation skipped because Profile or Connection Name is not set.")]
-        public void VpnCreationSkipped()
-        {
-            WriteEvent(7);
-        }
-
-        [Event(8, Level = EventLevel.Informational, Channel = EventChannel.Operational, Message = "{0}")]
+        [Event(7, Level = EventLevel.Informational, Channel = EventChannel.Operational, Message = "{0}")]
         public void Trace(string message)
         {
-            WriteEvent(8, message);
+            WriteEvent(7, message);
         }
     }
 }
