@@ -2,7 +2,7 @@
 {
     public interface IStateManager
     {
-        string ReadLastConnectionName();
-        void UpdateLastConnectionName(string connectionName);
+        string GetLastConnectionName();
+        void SetLastConnectionName(string connectionName);
     }
 }

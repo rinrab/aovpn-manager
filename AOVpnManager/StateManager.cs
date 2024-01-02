@@ -15,7 +15,7 @@ namespace AOVpnManager
             this.path = path;
         }
 
-        public string ReadLastConnectionName()
+        public string GetLastConnectionName()
         {
             using (RegistryKey key = root.OpenSubKey(path))
             {
@@ -23,7 +23,7 @@ namespace AOVpnManager
             }
         }
 
-        public void UpdateLastConnectionName(string connectionName)
+        public void SetLastConnectionName(string connectionName)
         {
             using (RegistryKey key = OpenOrCreateKey())
             {

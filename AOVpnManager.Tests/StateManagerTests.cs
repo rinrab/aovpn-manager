@@ -13,17 +13,17 @@ namespace AOVpnManager.Tests
 
             try
             {
-                stateManager.UpdateLastConnectionName("Contosa Vpn");
-                Assert.AreEqual("Contosa Vpn", stateManager.ReadLastConnectionName());
+                stateManager.SetLastConnectionName("Contosa Vpn");
+                Assert.AreEqual("Contosa Vpn", stateManager.GetLastConnectionName());
 
-                stateManager.UpdateLastConnectionName("Contosa Always On Vpn");
-                Assert.AreEqual("Contosa Always On Vpn", stateManager.ReadLastConnectionName());
+                stateManager.SetLastConnectionName("Contosa Always On Vpn");
+                Assert.AreEqual("Contosa Always On Vpn", stateManager.GetLastConnectionName());
 
-                stateManager.UpdateLastConnectionName(null);
-                Assert.AreEqual(null, stateManager.ReadLastConnectionName());
+                stateManager.SetLastConnectionName(null);
+                Assert.AreEqual(null, stateManager.GetLastConnectionName());
 
-                stateManager.UpdateLastConnectionName("Contosa Vpn v2");
-                Assert.AreEqual("Contosa Vpn v2", stateManager.ReadLastConnectionName());
+                stateManager.SetLastConnectionName("Contosa Vpn v2");
+                Assert.AreEqual("Contosa Vpn v2", stateManager.GetLastConnectionName());
             }
             finally
             {

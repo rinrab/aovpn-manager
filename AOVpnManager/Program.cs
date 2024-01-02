@@ -19,7 +19,7 @@ namespace AOVpnManager
             try
             {
                 GroupPolicySettings settings = policyProvider.ReadSettings();
-                string lastConnectionName = stateManager.ReadLastConnectionName();
+                string lastConnectionName = stateManager.GetLastConnectionName();
 
                 using (IVpnManager vpnManager = VpnManager.Create())
                 {
@@ -29,7 +29,7 @@ namespace AOVpnManager
                         {
                             vpnManager.DeleteVpnConnection(lastConnectionName);
                             logger.VpnConnectionDeleted(lastConnectionName);
-                            stateManager.UpdateLastConnectionName(null);
+                            stateManager.SetLastConnectionName(null);
                         }
                     }
                     else
@@ -38,7 +38,7 @@ namespace AOVpnManager
                         {
                             vpnManager.DeleteVpnConnection(lastConnectionName);
                             logger.VpnConnectionDeleted(lastConnectionName);
-                            stateManager.UpdateLastConnectionName(null);
+                            stateManager.SetLastConnectionName(null);
                         }
 
                         VpnConnectionInfo oldConnection = FindVpnConnection(vpnManager, settings.VpnConnectionName);
@@ -56,7 +56,7 @@ namespace AOVpnManager
                             logger.VpnConnectionUpdated(settings.VpnConnectionName);
                         }
 
-                        stateManager.UpdateLastConnectionName(settings.VpnConnectionName);
+                        stateManager.SetLastConnectionName(settings.VpnConnectionName);
                     }
                 }
             }
