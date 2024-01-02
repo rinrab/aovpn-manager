@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System;
 using System.Linq;
+using System.Runtime;
 
 namespace AOVpnManager
 {
@@ -45,8 +46,7 @@ namespace AOVpnManager
                             stateManager.UpdateLastConnectionName(null);
                         }
 
-                        VpnConnectionInfo oldConnection = vpnManager.EnumarateVpnConnections().FirstOrDefault(
-                            connection => connection.ConnectionName == settings.VpnConnectionName);
+                        VpnConnectionInfo oldConnection = FindVpnConnection(vpnManager, settings.VpnConnectionName);
 
                         logger.Trace("oldConnection: " + oldConnection?.ToString());
 
@@ -93,6 +93,18 @@ namespace AOVpnManager
             {
                 return new EventSourceLogger();
             }
+        }
+
+        static VpnConnectionInfo FindVpnConnection(IVpnManager vpnManager, string connectionName)
+        {
+            foreach (VpnConnectionInfo connection in vpnManager.EnumarateVpnConnections())
+            {
+                if (connection.ConnectionName == connectionName)
+                {
+                    return connection;
+                }
+            }
+            return null;
         }
     }
 }
