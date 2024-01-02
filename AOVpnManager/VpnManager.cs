@@ -11,7 +11,6 @@ namespace AOVpnManager
         private const string NamespaceName = @"root\cimv2\mdm\dmmap";
         private const string ConnectionNamePropertyName = "InstanceID";
         private const string ParentIdPropertyName = "ParentID";
-        private const string ParentIdPropertyValue = "./Vendor/MSFT/VPNv2";
         private const string ProfileXmlPropertyName = "ProfileXML";
 
         private readonly CimSession session;
@@ -70,7 +69,7 @@ namespace AOVpnManager
 
         private void AddKeyPropertiesToVpnConnection(CimInstance instance, string connectionName)
         {
-            instance.CimInstanceProperties.Add(CimProperty.Create(ParentIdPropertyName, ParentIdPropertyValue, CimType.String, CimFlags.Key));
+            instance.CimInstanceProperties.Add(CimProperty.Create(ParentIdPropertyName, "./Vendor/MSFT/VPNv2", CimType.String, CimFlags.Key));
             instance.CimInstanceProperties.Add(CimProperty.Create(ConnectionNamePropertyName, EscapeConnectionName(connectionName), CimType.String, CimFlags.Key));
         }
 
