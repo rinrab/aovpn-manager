@@ -19,7 +19,7 @@ namespace AOVpnManager
 
         public GroupPolicySettings ReadSettings()
         {
-            using (GroupPolicyApi.ObtainGroupPolicyLock())
+            using (GroupPolicyApi.ObtainGroupPolicyLock(true))
             using (RegistryKey key = root.OpenSubKey(path))
             {
                 if (key != null)
