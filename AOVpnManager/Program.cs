@@ -91,7 +91,7 @@ namespace AOVpnManager
             }
             else
             {
-                return new EventViewerLogger();
+                return new EventSourceLogger();
             }
         }
     }

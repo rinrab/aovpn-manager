@@ -3,7 +3,7 @@
 namespace AOVpnManager
 {
     [EventSource(Name = "AOVpnManager", Guid = "73C709D4-5F64-44FD-8402-E4D25FDC90CC")]
-    public sealed class EventViewerLogger : EventSource, ILogger
+    public sealed class EventSourceLogger : EventSource, ILogger
     {
         [Event(1, Level = EventLevel.Informational, Channel = EventChannel.Operational, Message = "AOVpnManager started")]
         public void Started()
