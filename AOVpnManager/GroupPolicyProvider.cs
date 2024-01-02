@@ -24,11 +24,10 @@ namespace AOVpnManager
             {
                 if (key != null)
                 {
-                    string[] profile = (string[])key.GetValue(Profile);
-                    string connectionName = (string)key.GetValue(ConnectionName);
+                    string[] profile = key.GetValue<string[]>(Profile, null);
+                    string connectionName = key.GetValue<string>(ConnectionName, DefaultConnectionName);
 
-                    return new GroupPolicySettings((profile == null) ? null : string.Join("\n", profile),
-                                                   connectionName ?? DefaultConnectionName);
+                    return new GroupPolicySettings((profile == null) ? null : string.Join("\n", profile), connectionName);
                 }
                 else
                 {
