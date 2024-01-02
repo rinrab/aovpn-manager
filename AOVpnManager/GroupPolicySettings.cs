@@ -2,13 +2,13 @@
 {
     public class GroupPolicySettings
     {
-        public string Profile { get; }
-        public string ConnectionName { get; }
+        public string VpnProfileXml { get; }
+        public string VpnConnectionName { get; }
 
         public GroupPolicySettings(string profile, string connectionName)
         {
-            Profile = profile;
-            ConnectionName = connectionName;
+            VpnProfileXml = profile;
+            VpnConnectionName = connectionName;
         }
     }
 }

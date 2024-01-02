@@ -34,7 +34,7 @@ namespace AOVpnManager
 
                 using (IVpnManager vpnManager = VpnManager.Create())
                 {
-                    if (string.IsNullOrEmpty(settings.Profile))
+                    if (string.IsNullOrEmpty(settings.VpnProfileXml))
                     {
                         if (lastConnectionName != null)
                         {
@@ -47,7 +47,7 @@ namespace AOVpnManager
                     }
                     else
                     {
-                        if (lastConnectionName != null && lastConnectionName != settings.ConnectionName)
+                        if (lastConnectionName != null && lastConnectionName != settings.VpnConnectionName)
                         {
                             vpnManager.DeleteVpnConnection(lastConnectionName);
                             logger.VpnConnectionDeleted(lastConnectionName);
@@ -55,22 +55,22 @@ namespace AOVpnManager
                         }
 
                         VpnConnectionInfo oldConnection = vpnManager.EnumarateVpnConnections().FirstOrDefault(
-                            connection => connection.ConnectionName == settings.ConnectionName);
+                            connection => connection.ConnectionName == settings.VpnConnectionName);
 
                         logger.Trace("oldConnection: " + oldConnection?.ToString());
 
                         if (oldConnection == null)
                         {
-                            vpnManager.CreateVpnConnection(settings.ConnectionName, settings.Profile);
-                            logger.VpnConnectionCreated(settings.ConnectionName);
+                            vpnManager.CreateVpnConnection(settings.VpnConnectionName, settings.VpnProfileXml);
+                            logger.VpnConnectionCreated(settings.VpnConnectionName);
                         }
                         else
                         {
-                            vpnManager.UpdateVpnConnection(settings.ConnectionName, settings.Profile);
-                            logger.VpnConnectionUpdated(settings.ConnectionName);
+                            vpnManager.UpdateVpnConnection(settings.VpnConnectionName, settings.VpnProfileXml);
+                            logger.VpnConnectionUpdated(settings.VpnConnectionName);
                         }
 
-                        stateManager.UpdateLastConnectionName(settings.ConnectionName);
+                        stateManager.UpdateLastConnectionName(settings.VpnConnectionName);
                     }
                 }
             }
