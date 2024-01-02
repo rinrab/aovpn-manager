@@ -27,7 +27,7 @@ namespace AOVpnManager.Tests
             }
             finally
             {
-                stateManager.Clean();
+                Registry.CurrentUser.DeleteSubKeyTree("Test");
             }
         }
     }

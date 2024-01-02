@@ -15,11 +15,6 @@ namespace AOVpnManager
             this.path = path;
         }
 
-        public void Clean()
-        {
-            root.DeleteSubKey(path, false);
-        }
-
         public string ReadLastConnectionName()
         {
             using (RegistryKey key = root.OpenSubKey(path))
