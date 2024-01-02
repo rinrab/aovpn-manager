@@ -6,7 +6,7 @@ namespace AOVpnManager
     {
         public bool IsConsole { get; set; }
 
-        public static CommandLineArguments Read(params string[] args)
+        public static CommandLineArguments Parse(params string[] args)
         {
             var rv = new CommandLineArguments();
 

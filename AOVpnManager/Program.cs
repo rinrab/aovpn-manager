@@ -9,7 +9,7 @@ namespace AOVpnManager
     {
         static int Main(string[] args)
         {
-            CommandLineArguments options = CommandLineArguments.Read(args);
+            CommandLineArguments options = CommandLineArguments.Parse(args);
 
             ILogger logger;
             if (options.IsConsole)

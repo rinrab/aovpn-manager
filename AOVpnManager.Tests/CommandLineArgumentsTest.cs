@@ -6,19 +6,19 @@ namespace AOVpnManager.Tests
     public class CommandLineArgumentsTest
     {
         [TestMethod]
-        public void ReadFromArgsTest()
+        public void ParseTest()
         {
-            Assert.AreEqual(true, CommandLineArguments.Read("/log", "console").IsConsole);
-            Assert.AreEqual(false, CommandLineArguments.Read("/log", "test").IsConsole); // ?
-            Assert.AreEqual(false, CommandLineArguments.Read("/log", "event").IsConsole);
-            Assert.AreEqual(false, CommandLineArguments.Read("/test", "abc").IsConsole);
-            Assert.AreEqual(false, CommandLineArguments.Read("/test", "console").IsConsole);
-            Assert.AreEqual(false, CommandLineArguments.Read().IsConsole);
-            Assert.AreEqual(true, CommandLineArguments.Read("/TEST", "VAL", "/LOG", "CONSOLE").IsConsole);
+            Assert.AreEqual(true, CommandLineArguments.Parse("/log", "console").IsConsole);
+            Assert.AreEqual(false, CommandLineArguments.Parse("/log", "test").IsConsole); // ?
+            Assert.AreEqual(false, CommandLineArguments.Parse("/log", "event").IsConsole);
+            Assert.AreEqual(false, CommandLineArguments.Parse("/test", "abc").IsConsole);
+            Assert.AreEqual(false, CommandLineArguments.Parse("/test", "console").IsConsole);
+            Assert.AreEqual(false, CommandLineArguments.Parse().IsConsole);
+            Assert.AreEqual(true, CommandLineArguments.Parse("/TEST", "VAL", "/LOG", "CONSOLE").IsConsole);
 
-            Assert.AreEqual(true, CommandLineArguments.Read("/console").IsConsole);
-            Assert.AreEqual(true, CommandLineArguments.Read("/test", "/console").IsConsole);
-            Assert.AreEqual(true, CommandLineArguments.Read("/log", "event", "/console").IsConsole); // ?
+            Assert.AreEqual(true, CommandLineArguments.Parse("/console").IsConsole);
+            Assert.AreEqual(true, CommandLineArguments.Parse("/test", "/console").IsConsole);
+            Assert.AreEqual(true, CommandLineArguments.Parse("/log", "event", "/console").IsConsole); // ?
         }
     }
 }
