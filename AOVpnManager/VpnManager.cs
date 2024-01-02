@@ -5,7 +5,7 @@ using System.Security;
 
 namespace AOVpnManager
 {
-    public class VpnManager : IDisposable, IVpnManager
+    public class VpnManager : IVpnManager
     {
         private const string ClassName = "MDM_VPNv2_01";
         private const string NamespaceName = @"root\cimv2\mdm\dmmap";
