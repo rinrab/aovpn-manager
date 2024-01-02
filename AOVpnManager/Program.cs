@@ -53,23 +53,22 @@ namespace AOVpnManager
                             stateManager.UpdateLastConnectionName(null);
                         }
 
-                        using (CimInstance oldInstance = vpnManager.GetVpnConnection(settings.ConnectionName))
+                        VpnConnectionInfo oldInstance = vpnManager.GetVpnConnection(settings.ConnectionName);
+
+                        logger.Trace("oldInstance: " + oldInstance?.ToString());
+
+                        if (oldInstance == null)
                         {
-                            logger.Trace("oldInstance: " + oldInstance?.ToString());
-
-                            if (oldInstance == null)
-                            {
-                                vpnManager.CreateVpnConnection(settings.ConnectionName, settings.Profile);
-                                logger.VpnConnectionCreated(settings.ConnectionName);
-                            }
-                            else
-                            {
-                                vpnManager.UpdateVpnConnection(settings.ConnectionName, settings.Profile);
-                                logger.VpnConnectionUpdated(settings.ConnectionName);
-                            }
-
-                            stateManager.UpdateLastConnectionName(settings.ConnectionName);
+                            vpnManager.CreateVpnConnection(settings.ConnectionName, settings.Profile);
+                            logger.VpnConnectionCreated(settings.ConnectionName);
                         }
+                        else
+                        {
+                            vpnManager.UpdateVpnConnection(settings.ConnectionName, settings.Profile);
+                            logger.VpnConnectionUpdated(settings.ConnectionName);
+                        }
+
+                        stateManager.UpdateLastConnectionName(settings.ConnectionName);
                     }
                 }
             }

@@ -50,18 +50,20 @@ namespace AOVpnManager
             }
         }
 
-        public CimInstance GetVpnConnection(string connectionName)
+        public VpnConnectionInfo GetVpnConnection(string connectionName)
         {
             string escapedConnectionName = EscapeConnectionName(connectionName);
 
             foreach (CimInstance instance in session.EnumerateInstances(NamespaceName, ClassName))
             {
-                if ((string)instance.CimInstanceProperties["InstanceID"].Value == escapedConnectionName)
+                using (instance)
                 {
-                    return instance;
+                    if ((string)instance.CimInstanceProperties["InstanceID"].Value == escapedConnectionName)
+                    {
+                        return new VpnConnectionInfo((string)instance.CimInstanceProperties["InstanceID"].Value,
+                                                     (string)instance.CimInstanceProperties["ProfileXML"].Value);
+                    }
                 }
-
-                instance.Dispose();
             }
 
             return null;

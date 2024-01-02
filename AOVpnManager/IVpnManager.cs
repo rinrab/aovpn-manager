@@ -1,5 +1,4 @@
-﻿using Microsoft.Management.Infrastructure;
-using System;
+﻿using System;
 
 namespace AOVpnManager
 {
@@ -7,7 +6,7 @@ namespace AOVpnManager
     {
         void CreateVpnConnection(string connectionName, string profile);
         void DeleteVpnConnection(string connectionName);
-        CimInstance GetVpnConnection(string connectionName);
+        VpnConnectionInfo GetVpnConnection(string connectionName);
         void UpdateVpnConnection(string connectionName, string profile);
     }
 }
