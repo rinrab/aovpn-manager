@@ -2,13 +2,13 @@
 
 namespace AOVpnManager
 {
-    public class CommandLineArguments
+    public class CommandLineOptions
     {
         public bool IsConsole { get; set; }
 
-        public static CommandLineArguments Parse(params string[] args)
+        public static CommandLineOptions Parse(params string[] args)
         {
-            var rv = new CommandLineArguments();
+            var rv = new CommandLineOptions();
 
             for (int i = 0; i < args.Length; i++)
             {

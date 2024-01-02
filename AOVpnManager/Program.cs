@@ -7,7 +7,7 @@ namespace AOVpnManager
     {
         static int Main(string[] args)
         {
-            CommandLineArguments options = CommandLineArguments.Parse(args);
+            CommandLineOptions options = CommandLineOptions.Parse(args);
 
             ILogger logger = CreateLogger(options.IsConsole);
             IGroupPolicyProvider policyProvider = new GroupPolicyProvider(Registry.LocalMachine, @"SOFTWARE\Policies\AOVpnManager");
