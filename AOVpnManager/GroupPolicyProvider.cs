@@ -22,16 +22,16 @@ namespace AOVpnManager
             using (GroupPolicyApi.ObtainGroupPolicyLock(true))
             using (RegistryKey key = root.OpenSubKey(path))
             {
-                if (key != null)
+                if (key == null)
+                {
+                    return new GroupPolicySettings(null, null);
+                }
+                else
                 {
                     string[] profile = key.GetValue<string[]>(Profile, null);
                     string connectionName = key.GetValue<string>(ConnectionName, DefaultConnectionName);
 
                     return new GroupPolicySettings((profile == null) ? null : string.Join("\n", profile), connectionName);
-                }
-                else
-                {
-                    return new GroupPolicySettings(null, null);
                 }
             }
         }
