@@ -23,7 +23,7 @@ namespace AOVpnManager
             }
         }
 
-        public static IDisposable EnterCriticalPolicySection()
+        public static IDisposable ObtainGroupPolicyLock()
         {
             IntPtr handle = EnterCriticalPolicySection(true);
 
