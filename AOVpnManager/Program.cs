@@ -65,13 +65,7 @@ namespace AOVpnManager
             }
             catch (Exception ex)
             {
-                string message = ex.Message;
-                if (ex is CimException cimException)
-                {
-                    message += string.Format(" ({0})", cimException.NativeErrorCode.ToString());
-                }
-
-                logger.Exception(message, ex.StackTrace);
+                logger.Exception(ex.Message, ex.StackTrace);
 
                 exitCode = 1;
             }
