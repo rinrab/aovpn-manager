@@ -31,7 +31,7 @@ namespace AOVpnManager
                 GroupPolicySettings settings = policyProvider.ReadSettings();
                 string lastConnectionName = stateManager.ReadLastConnectionName();
 
-                using (VpnManager vpnManager = new VpnManager())
+                using (IVpnManager vpnManager = VpnManager.Create())
                 {
                     if (string.IsNullOrEmpty(settings.Profile))
                     {

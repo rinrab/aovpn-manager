@@ -4,16 +4,21 @@ using System.Security;
 
 namespace AOVpnManager
 {
-    public class VpnManager : IDisposable
+    public class VpnManager : IDisposable, IVpnManager
     {
         const string ClassName = "MDM_VPNv2_01";
         const string NamespaceName = @"root\cimv2\mdm\dmmap";
 
         private readonly CimSession session;
 
-        public VpnManager()
+        private VpnManager(CimSession session)
         {
-            session = CimSession.Create(null);
+            this.session = session;
+        }
+
+        public static IVpnManager Create()
+        {
+            return new VpnManager(CimSession.Create(null));
         }
 
         public void CreateVpnConnection(string connectionName, string profile)
