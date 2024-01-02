@@ -11,16 +11,7 @@ namespace AOVpnManager
         {
             CommandLineArguments options = CommandLineArguments.Parse(args);
 
-            ILogger logger;
-            if (options.IsConsole)
-            {
-                logger = new ConsoleLogger();
-            }
-            else
-            {
-                logger = new EventViewerLogger();
-            }
-
+            ILogger logger = CreateLogger(options.IsConsole);
             IGroupPolicyProvider policyProvider = new GroupPolicyProvider(Registry.LocalMachine, @"SOFTWARE\Policies\AOVpnManager");
             IStateManager stateManager = new StateManager(Registry.LocalMachine, @"SOFTWARE\AOVpnManager");
 
@@ -90,6 +81,18 @@ namespace AOVpnManager
             logger.Finished(exitCode);
 
             return exitCode;
+        }
+
+        static ILogger CreateLogger(bool isConsole)
+        {
+            if (isConsole)
+            {
+                return new ConsoleLogger();
+            }
+            else
+            {
+                return new EventViewerLogger();
+            }
         }
     }
 }
