@@ -5,6 +5,8 @@ namespace AOVpnManager
     public class GroupPolicyProvider : IGroupPolicyProvider
     {
         const string DefaultConnectionName = "Always On Vpn";
+        const string Profile = nameof(Profile);
+        const string ConnectionName = nameof(ConnectionName);
 
         private readonly RegistryKey root;
         private readonly string path;
@@ -22,8 +24,8 @@ namespace AOVpnManager
             {
                 if (key != null)
                 {
-                    string[] profile = (string[])key.GetValue("Profile");
-                    string connectionName = (string)key.GetValue("ConnectionName");
+                    string[] profile = (string[])key.GetValue(Profile);
+                    string connectionName = (string)key.GetValue(ConnectionName);
 
                     return new GroupPolicySettings((profile == null) ? null : string.Join("\n", profile),
                                                    connectionName ?? DefaultConnectionName);
