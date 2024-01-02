@@ -21,9 +21,6 @@ namespace AOVpnManager
                     throw new Exception(string.Format("LeaveCriticalPolicySection failed with code: {0}", Marshal.GetLastWin32Error()));
                 }
             }
-
-            [DllImport("Userenv.dll")]
-            private static extern bool LeaveCriticalPolicySection([In] IntPtr hSection);
         }
 
         public static IDisposable EnterCriticalPolicySection()
@@ -42,5 +39,8 @@ namespace AOVpnManager
 
         [DllImport("Userenv.dll")]
         private static extern IntPtr EnterCriticalPolicySection([In] bool bMachine);
+
+        [DllImport("Userenv.dll")]
+        private static extern bool LeaveCriticalPolicySection([In] IntPtr hSection);
     }
 }
