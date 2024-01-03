@@ -18,9 +18,12 @@ namespace AOVpnManager
 
             try
             {
-                GpUpdateProcessor processor = new GpUpdateProcessor(VpnManager.Create(), policyProvider, stateManager, logger);
+                using (IVpnManager vpnManager = VpnManager.Create())
+                {
+                    GpUpdateProcessor processor = new GpUpdateProcessor(vpnManager, policyProvider, stateManager, logger);
 
-                processor.Run();
+                    processor.Run();
+                }
             }
             catch (Exception ex)
             {
