@@ -25,7 +25,7 @@ namespace AOVpnManager
 
         public void SetLastConnectionName(string connectionName)
         {
-            using (RegistryKey key = OpenOrCreateKey())
+            using (RegistryKey key = root.CreateSubKey(path, true))
             {
                 if (connectionName == null)
                 {
@@ -36,11 +36,6 @@ namespace AOVpnManager
                     key.SetValue(LastConnectionName, connectionName);
                 }
             }
-        }
-
-        private RegistryKey OpenOrCreateKey()
-        {
-            return root.OpenSubKey(path, true) ?? root.CreateSubKey(path, true);
         }
     }
 }
