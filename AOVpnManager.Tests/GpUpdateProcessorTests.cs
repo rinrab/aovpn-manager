@@ -51,6 +51,26 @@ namespace AOVpnManager.Tests
 
                 mocks.VerifyAll();
             }
+
+            // Rename Vpn Connection
+            {
+                mocks.BackToRecordAll();
+
+                vpnManager.Expect(x => x.EnumarateVpnConnections()).Return(new VpnConnectionInfo[] { new VpnConnectionInfo("Name 1", "Profile 2") });
+                vpnManager.Expect(x => x.DeleteVpnConnection("Name 1"));
+                vpnManager.Expect(x => x.CreateVpnConnection("Name 2", "Profile 2"));
+                policyProvider.Expect(x => x.ReadSettings()).Return(new GroupPolicySettings("Profile 2", "Name 2"));
+                logger.Expect(x => x.Trace(null)).Repeat.Any().IgnoreArguments();
+                logger.Expect(x => x.VpnConnectionDeleted("Name 1"));
+                logger.Expect(x => x.VpnConnectionCreated("Name 2"));
+
+                mocks.ReplayAll();
+
+                GpUpdateProcessor processor = new GpUpdateProcessor(vpnManager, policyProvider, stateManager, logger);
+                processor.Run();
+
+                mocks.VerifyAll();
+            }
         }
     }
 }
