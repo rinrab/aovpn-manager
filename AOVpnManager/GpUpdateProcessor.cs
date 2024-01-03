@@ -56,7 +56,7 @@
 
                     VpnConnectionInfo oldConnection = FindVpnConnection(settings.VpnConnectionName);
 
-                    logger.Trace("oldConnection: " + oldConnection?.ToString());
+                    logger.Trace(string.Format("oldConnection: {0}", oldConnection));
 
                     if (oldConnection == null)
                     {
