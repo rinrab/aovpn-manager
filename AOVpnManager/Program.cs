@@ -18,61 +18,9 @@ namespace AOVpnManager
 
             try
             {
-                GroupPolicySettings settings = policyProvider.ReadSettings();
-                string lastConnectionName = stateManager.GetLastConnectionName();
+                GpUpdateProcessor processor = new GpUpdateProcessor(VpnManager.Create(), policyProvider, stateManager, logger);
 
-                using (IVpnManager vpnManager = VpnManager.Create())
-                {
-                    if (string.IsNullOrEmpty(settings.VpnProfileXml))
-                    {
-                        if (lastConnectionName != null)
-                        {
-                            try
-                            {
-                                vpnManager.DeleteVpnConnection(lastConnectionName);
-                                logger.VpnConnectionDeleted(lastConnectionName);
-                            }
-                            catch (VpnConnectionNotFoundException)
-                            {
-                            }
-
-                            stateManager.SetLastConnectionName(null);
-                        }
-                    }
-                    else
-                    {
-                        if (lastConnectionName != null && lastConnectionName != settings.VpnConnectionName)
-                        {
-                            try
-                            {
-                                vpnManager.DeleteVpnConnection(lastConnectionName);
-                                logger.VpnConnectionDeleted(lastConnectionName);
-                            }
-                            catch (VpnConnectionNotFoundException)
-                            {
-                            }
-
-                            stateManager.SetLastConnectionName(null);
-                        }
-
-                        VpnConnectionInfo oldConnection = FindVpnConnection(vpnManager, settings.VpnConnectionName);
-
-                        logger.Trace("oldConnection: " + oldConnection?.ToString());
-
-                        if (oldConnection == null)
-                        {
-                            vpnManager.CreateVpnConnection(settings.VpnConnectionName, settings.VpnProfileXml);
-                            logger.VpnConnectionCreated(settings.VpnConnectionName);
-                        }
-                        else
-                        {
-                            vpnManager.UpdateVpnConnection(settings.VpnConnectionName, settings.VpnProfileXml);
-                            logger.VpnConnectionUpdated(settings.VpnConnectionName);
-                        }
-
-                        stateManager.SetLastConnectionName(settings.VpnConnectionName);
-                    }
-                }
+                processor.Run();
             }
             catch (Exception ex)
             {
@@ -96,18 +44,6 @@ namespace AOVpnManager
             {
                 return new EventSourceLogger();
             }
-        }
-
-        static VpnConnectionInfo FindVpnConnection(IVpnManager vpnManager, string connectionName)
-        {
-            foreach (VpnConnectionInfo connection in vpnManager.EnumarateVpnConnections())
-            {
-                if (connection.ConnectionName == connectionName)
-                {
-                    return connection;
-                }
-            }
-            return null;
         }
     }
 }
