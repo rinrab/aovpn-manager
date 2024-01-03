@@ -29,7 +29,7 @@ namespace AOVpnManager
             {
                 if (connectionName == null)
                 {
-                    key.DeleteValue(LastConnectionName);
+                    key.DeleteValue(LastConnectionName, false);
                 }
                 else
                 {
