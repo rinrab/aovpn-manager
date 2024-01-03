@@ -9,47 +9,59 @@ namespace AOVpnManager.Tests
         [TestMethod]
         public void CreateVpnConnectionFromEmptyState()
         {
-            IVpnManager vpnManager = MockRepository.GenerateStub<IVpnManager>();
-            vpnManager.Stub(x => x.EnumarateVpnConnections()).Return(new VpnConnectionInfo[] { });
+            MockRepository mocks = new MockRepository();
 
-            var policyProvider = MockRepository.GenerateStub<IGroupPolicyProvider>();
-            policyProvider.Stub(x => x.ReadSettings()).Return(new GroupPolicySettings("Profile 1", "Name 1"));
+            IVpnManager vpnManager = mocks.StrictMock<IVpnManager>();
+            IGroupPolicyProvider policyProvider = mocks.StrictMock<IGroupPolicyProvider>();
+            IStateManager stateManager = mocks.StrictMock<IStateManager>();
+            ILogger logger = mocks.StrictMock<ILogger>();
 
-            var stateManager = MockRepository.GenerateStub<IStateManager>();
-            stateManager.Stub(x => x.GetLastConnectionName()).Return(null);
+            vpnManager.Expect(x => x.EnumarateVpnConnections()).Return(new VpnConnectionInfo[] { });
+            vpnManager.Expect(x => x.CreateVpnConnection("Name 1", "Profile 1"));
 
-            var logger = MockRepository.GenerateStub<ILogger>();
+            policyProvider.Expect(x => x.ReadSettings()).Return(new GroupPolicySettings("Profile 1", "Name 1"));
+
+            stateManager.Expect(x => x.GetLastConnectionName()).Return(null);
+            stateManager.Expect(x => x.SetLastConnectionName("Name 1"));
+
+            logger.Expect(x => x.Trace(null)).Repeat.Any().IgnoreArguments();
+            logger.Expect(x => x.VpnConnectionCreated("Name 1"));
+
+            mocks.ReplayAll();
 
             GpUpdateProcessor processor = new GpUpdateProcessor(vpnManager, policyProvider, stateManager, logger);
             processor.Run();
 
-            vpnManager.AssertWasCalled(x => x.CreateVpnConnection("Name 1", "Profile 1"));
-            vpnManager.AssertWasNotCalled(x => x.UpdateVpnConnection("Name 1", "Profile 1"));
-            vpnManager.AssertWasNotCalled(x => x.DeleteVpnConnection("Name 1"));
-            stateManager.AssertWasCalled(x => x.SetLastConnectionName("Name 1"));
+            mocks.VerifyAll();
         }
 
         [TestMethod]
         public void UpdateVpnProfile()
         {
-            IVpnManager vpnManager = MockRepository.GenerateStub<IVpnManager>();
-            vpnManager.Stub(x => x.EnumarateVpnConnections()).Return(new VpnConnectionInfo[] { new VpnConnectionInfo("Name 1", "Profile 1") });
+            MockRepository mocks = new MockRepository();
 
-            var policyProvider = MockRepository.GenerateStub<IGroupPolicyProvider>();
-            policyProvider.Stub(x => x.ReadSettings()).Return(new GroupPolicySettings("Profile 2", "Name 1"));
+            IVpnManager vpnManager = mocks.StrictMock<IVpnManager>();
+            IGroupPolicyProvider policyProvider = mocks.StrictMock<IGroupPolicyProvider>();
+            IStateManager stateManager = mocks.StrictMock<IStateManager>();
+            ILogger logger = mocks.StrictMock<ILogger>();
 
-            var stateManager = MockRepository.GenerateStub<IStateManager>();
-            stateManager.Stub(x => x.GetLastConnectionName()).Return("Name 1");
+            vpnManager.Expect(x => x.EnumarateVpnConnections()).Return(new VpnConnectionInfo[] { new VpnConnectionInfo("Name 1", "Profile 1") });
+            vpnManager.Expect(x => x.UpdateVpnConnection("Name 1", "Profile 2"));
 
-            var logger = MockRepository.GenerateStub<ILogger>();
+            policyProvider.Expect(x => x.ReadSettings()).Return(new GroupPolicySettings("Profile 2", "Name 1"));
+
+            stateManager.Expect(x => x.GetLastConnectionName()).Return("Name 1");
+            stateManager.Expect(x => x.SetLastConnectionName("Name 1"));
+
+            logger.Expect(x => x.Trace(null)).Repeat.Any().IgnoreArguments();
+            logger.Expect(x => x.VpnConnectionUpdated("Name 1"));
+
+            mocks.ReplayAll();
 
             GpUpdateProcessor processor = new GpUpdateProcessor(vpnManager, policyProvider, stateManager, logger);
             processor.Run();
 
-            vpnManager.AssertWasNotCalled(x => x.CreateVpnConnection("Name 1", "Profile 2"));
-            vpnManager.AssertWasCalled(x => x.UpdateVpnConnection("Name 1", "Profile 2"));
-            vpnManager.AssertWasNotCalled(x => x.DeleteVpnConnection("Name 1"));
-            stateManager.AssertWasCalled(x => x.SetLastConnectionName("Name 1"));
+            mocks.VerifyAll();
         }
     }
 }
