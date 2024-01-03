@@ -9,5 +9,6 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="3.0.4" />
     <PackageReference Include="MSTest.TestFramework" Version="3.0.4" />
+    <PackageReference Include="RhinoMocks" Version="3.6.1" />
   </ItemGroup>
 </Project>
