@@ -20,57 +20,54 @@
             GroupPolicySettings settings = policyProvider.ReadSettings();
             string lastConnectionName = stateManager.GetLastConnectionName();
 
-            using (IVpnManager vpnManager = VpnManager.Create())
+            if (string.IsNullOrEmpty(settings.VpnProfileXml))
             {
-                if (string.IsNullOrEmpty(settings.VpnProfileXml))
+                if (lastConnectionName != null)
                 {
-                    if (lastConnectionName != null)
+                    try
                     {
-                        try
-                        {
-                            vpnManager.DeleteVpnConnection(lastConnectionName);
-                            logger.VpnConnectionDeleted(lastConnectionName);
-                        }
-                        catch (VpnConnectionNotFoundException)
-                        {
-                        }
-
-                        stateManager.SetLastConnectionName(null);
+                        vpnManager.DeleteVpnConnection(lastConnectionName);
+                        logger.VpnConnectionDeleted(lastConnectionName);
                     }
+                    catch (VpnConnectionNotFoundException)
+                    {
+                    }
+
+                    stateManager.SetLastConnectionName(null);
+                }
+            }
+            else
+            {
+                if (lastConnectionName != null && lastConnectionName != settings.VpnConnectionName)
+                {
+                    try
+                    {
+                        vpnManager.DeleteVpnConnection(lastConnectionName);
+                        logger.VpnConnectionDeleted(lastConnectionName);
+                    }
+                    catch (VpnConnectionNotFoundException)
+                    {
+                    }
+
+                    stateManager.SetLastConnectionName(null);
+                }
+
+                VpnConnectionInfo oldConnection = FindVpnConnection(settings.VpnConnectionName);
+
+                logger.Trace(string.Format("oldConnection: {0}", oldConnection));
+
+                if (oldConnection == null)
+                {
+                    vpnManager.CreateVpnConnection(settings.VpnConnectionName, settings.VpnProfileXml);
+                    logger.VpnConnectionCreated(settings.VpnConnectionName);
                 }
                 else
                 {
-                    if (lastConnectionName != null && lastConnectionName != settings.VpnConnectionName)
-                    {
-                        try
-                        {
-                            vpnManager.DeleteVpnConnection(lastConnectionName);
-                            logger.VpnConnectionDeleted(lastConnectionName);
-                        }
-                        catch (VpnConnectionNotFoundException)
-                        {
-                        }
-
-                        stateManager.SetLastConnectionName(null);
-                    }
-
-                    VpnConnectionInfo oldConnection = FindVpnConnection(settings.VpnConnectionName);
-
-                    logger.Trace(string.Format("oldConnection: {0}", oldConnection));
-
-                    if (oldConnection == null)
-                    {
-                        vpnManager.CreateVpnConnection(settings.VpnConnectionName, settings.VpnProfileXml);
-                        logger.VpnConnectionCreated(settings.VpnConnectionName);
-                    }
-                    else
-                    {
-                        vpnManager.UpdateVpnConnection(settings.VpnConnectionName, settings.VpnProfileXml);
-                        logger.VpnConnectionUpdated(settings.VpnConnectionName);
-                    }
-
-                    stateManager.SetLastConnectionName(settings.VpnConnectionName);
+                    vpnManager.UpdateVpnConnection(settings.VpnConnectionName, settings.VpnProfileXml);
+                    logger.VpnConnectionUpdated(settings.VpnConnectionName);
                 }
+
+                stateManager.SetLastConnectionName(settings.VpnConnectionName);
             }
         }
 
