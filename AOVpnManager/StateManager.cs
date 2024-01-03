@@ -19,7 +19,7 @@ namespace AOVpnManager
         {
             using (RegistryKey key = root.OpenSubKey(path))
             {
-                return key?.GetValue<string>(LastConnectionName, null);
+                return key.GetValue<string>(LastConnectionName, null);
             }
         }
 
