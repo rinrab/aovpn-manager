@@ -27,8 +27,15 @@ namespace AOVpnManager
                     {
                         if (lastConnectionName != null)
                         {
-                            vpnManager.DeleteVpnConnection(lastConnectionName);
-                            logger.VpnConnectionDeleted(lastConnectionName);
+                            try
+                            {
+                                vpnManager.DeleteVpnConnection(lastConnectionName);
+                                logger.VpnConnectionDeleted(lastConnectionName);
+                            }
+                            catch (VpnConnectionNotFoundException)
+                            {
+                            }
+
                             stateManager.SetLastConnectionName(null);
                         }
                     }
@@ -36,8 +43,15 @@ namespace AOVpnManager
                     {
                         if (lastConnectionName != null && lastConnectionName != settings.VpnConnectionName)
                         {
-                            vpnManager.DeleteVpnConnection(lastConnectionName);
-                            logger.VpnConnectionDeleted(lastConnectionName);
+                            try
+                            {
+                                vpnManager.DeleteVpnConnection(lastConnectionName);
+                                logger.VpnConnectionDeleted(lastConnectionName);
+                            }
+                            catch (VpnConnectionNotFoundException)
+                            {
+                            }
+
                             stateManager.SetLastConnectionName(null);
                         }
 
