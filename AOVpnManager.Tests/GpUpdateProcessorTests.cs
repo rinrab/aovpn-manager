@@ -36,7 +36,7 @@ namespace AOVpnManager.Tests
 
             // Update Vpn Profile
             {
-                mocks.ReplayAll();
+                mocks.BackToRecordAll();
 
                 vpnManager.Expect(x => x.EnumarateVpnConnections()).Return(new VpnConnectionInfo[] { new VpnConnectionInfo("Name 1", "Profile 1") });
                 vpnManager.Expect(x => x.UpdateVpnConnection("Name 1", "Profile 2"));
