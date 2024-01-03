@@ -26,7 +26,7 @@ namespace AOVpnManager
 
         public static IDisposable ObtainGroupPolicyLock(bool machine)
         {
-            IntPtr handle = EnterCriticalPolicySection(true);
+            IntPtr handle = EnterCriticalPolicySection(machine);
 
             if (handle == IntPtr.Zero)
             {
