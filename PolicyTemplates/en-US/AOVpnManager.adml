@@ -5,10 +5,10 @@
     <resources>
         <stringTable>
             <string id="AOVpnManager">AOVpnManager</string>
-            <string id="AOVpnManager_Profile">Vpn Config</string>
-            <string id="AOVpnManager_Profile_Explain">Xml with Always on Vpn Configuration.</string>
+            <string id="AOVpnManager_Profile">VPN Config</string>
+            <string id="AOVpnManager_Profile_Explain">XML with Always On VPN Configuration.</string>
             <string id="AOVpnManager_ConnectionName">Connection Name</string>
-            <string id="AOVpnManager_ConnectionName_Explain">The name of your Vpn connection.</string>
+            <string id="AOVpnManager_ConnectionName_Explain">The name of your VPN connection.</string>
         </stringTable>
         <presentationTable>
             <presentation id="Profile">
@@ -16,7 +16,7 @@
             </presentation>
             <presentation id="ConnectionName">
               <textBox refId="ConnectionName">
-                <label>The name of your Vpn connection.</label>
+                <label>The name of your VPN connection.</label>
               </textBox>
             </presentation>
         </presentationTable>
