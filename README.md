@@ -23,3 +23,7 @@ Group Policy update processor should be installed on user's computer. This appli
 Install Policy Templates on your server to manage your Always On VPN Connection.
 
 - [Policy Templates (admx)](https://github.com/rinrab/aovpn-manager/releases/latest/download/PolicyTemplates.zip)
+
+## Demo
+
+![](www/demo.gif)
