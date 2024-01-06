@@ -39,10 +39,12 @@ namespace AOVpnManager.Tests
                 mocks.BackToRecordAll();
 
                 vpnManager.Expect(x => x.EnumarateVpnConnections()).Return(new VpnConnectionInfo[] { new VpnConnectionInfo("Name 1", "Profile 1") });
-                vpnManager.Expect(x => x.UpdateVpnConnection("Name 1", "Profile 2"));
+                vpnManager.Expect(x => x.DeleteVpnConnection("Name 1"));
+                vpnManager.Expect(x => x.CreateVpnConnection("Name 1", "Profile 2"));
                 policyProvider.Expect(x => x.ReadSettings()).Return(new GroupPolicySettings("Profile 2", "Name 1"));
                 logger.Expect(x => x.Trace(null)).Repeat.Any().IgnoreArguments();
-                logger.Expect(x => x.VpnConnectionUpdated("Name 1"));
+                logger.Expect(x => x.VpnConnectionDeleted("Name 1"));
+                logger.Expect(x => x.VpnConnectionCreated("Name 1"));
 
                 mocks.ReplayAll();
 

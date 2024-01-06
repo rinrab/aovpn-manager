@@ -6,7 +6,6 @@
         void Finished(int code);
         void Started();
         void VpnConnectionCreated(string connectionName);
-        void VpnConnectionUpdated(string connectionName);
         void Trace(string message);
         void VpnConnectionDeleted(string connectionName);
     }

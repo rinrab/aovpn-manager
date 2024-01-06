@@ -58,16 +58,20 @@
 
                 if (oldConnection == null)
                 {
+                    stateManager.SetLastConnectionName(settings.VpnConnectionName);
                     vpnManager.CreateVpnConnection(settings.VpnConnectionName, settings.VpnProfileXml);
                     logger.VpnConnectionCreated(settings.VpnConnectionName);
                 }
                 else
                 {
-                    vpnManager.UpdateVpnConnection(settings.VpnConnectionName, settings.VpnProfileXml);
-                    logger.VpnConnectionUpdated(settings.VpnConnectionName);
-                }
+                    stateManager.SetLastConnectionName(null);
+                    vpnManager.DeleteVpnConnection(lastConnectionName);
+                    logger.VpnConnectionDeleted(lastConnectionName);
 
-                stateManager.SetLastConnectionName(settings.VpnConnectionName);
+                    stateManager.SetLastConnectionName(settings.VpnConnectionName);
+                    vpnManager.CreateVpnConnection(settings.VpnConnectionName, settings.VpnProfileXml);
+                    logger.VpnConnectionCreated(settings.VpnConnectionName);
+                }
             }
         }
 

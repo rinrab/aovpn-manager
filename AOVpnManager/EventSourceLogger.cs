@@ -29,12 +29,6 @@ namespace AOVpnManager
             WriteEvent(4, connectionName);
         }
 
-        [Event(5, Level = EventLevel.Informational, Channel = EventChannel.Operational, Message = "Vpn connection \"{0}\" updated.")]
-        public void VpnConnectionUpdated(string connectionName)
-        {
-            WriteEvent(5, connectionName);
-        }
-
         [Event(6, Level = EventLevel.Informational, Channel = EventChannel.Operational, Message = "Vpn connection \"{0}\" deleted.")]
         public void VpnConnectionDeleted(string connectionName)
         {

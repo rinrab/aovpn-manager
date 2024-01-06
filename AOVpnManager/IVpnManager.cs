@@ -8,6 +8,5 @@ namespace AOVpnManager
         void CreateVpnConnection(string connectionName, string profile);
         void DeleteVpnConnection(string connectionName);
         IEnumerable<VpnConnectionInfo> EnumarateVpnConnections();
-        void UpdateVpnConnection(string connectionName, string profile);
     }
 }

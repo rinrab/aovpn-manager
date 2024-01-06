@@ -46,24 +46,6 @@ namespace AOVpnManager
             }
         }
 
-
-        public void UpdateVpnConnection(string connectionName, string profile)
-        {
-            try
-            {
-                using (CimInstance newInstance = new CimInstance(ClassName, NamespaceName))
-                {
-                    AddKeyPropertiesToVpnConnection(newInstance, connectionName);
-                    AddValuePropertiesToVpnConnection(newInstance, profile);
-                    session.ModifyInstance(NamespaceName, newInstance);
-                }
-            }
-            catch (CimException ex)
-            {
-                throw ConvertCimException(ex);
-            }
-        }
-
         public void DeleteVpnConnection(string connectionName)
         {
             try

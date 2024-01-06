@@ -24,11 +24,6 @@ namespace AOVpnManager
             Console.WriteLine("Vpn connection \"{0}\" created.", connectionName);
         }
 
-        public void VpnConnectionUpdated(string connectionName)
-        {
-            Console.WriteLine("Vpn connection \"{0}\" updated.", connectionName);
-        }
-
         public void VpnConnectionDeleted(string connectionName)
         {
             Console.WriteLine("Vpn connection \"{0}\" deleted.", connectionName);
