@@ -25,15 +25,20 @@ namespace AOVpnManager
 
         public void SetLastConnectionName(string connectionName)
         {
+            SetValue(LastConnectionName, connectionName);
+        }
+
+        private void SetValue(string keyName, object value)
+        {
             using (RegistryKey key = root.CreateSubKey(path, true))
             {
-                if (connectionName == null)
+                if (value == null)
                 {
-                    key.DeleteValue(LastConnectionName, false);
+                    key.DeleteValue(keyName, false);
                 }
                 else
                 {
-                    key.SetValue(LastConnectionName, connectionName);
+                    key.SetValue(keyName, value);
                 }
             }
         }
