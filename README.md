@@ -3,10 +3,10 @@
 An open-source application for deploying Always On VPN via Group Policy.
 
 ## Features
-- No user action needed
+- **No** user action needed
 - Fastest and easiest way to deploy your Always On VPN
 - Free and open-source
-- No Telemetry
+- **No** Telemetry
 
 ## Download
 
