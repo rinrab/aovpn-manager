@@ -14,9 +14,9 @@ An open-source application for deploying Always On VPN via Group Policy.
 
 Group Policy update processor should be installed on user's computer. This application will be looking for updates in group policy and apply them.
 
-- [x64 (msi)]([https](https://github.com/rinrab/aovpn-manager/releases/latest/download/AOVpnManager-win-x64.msi))
-- [x86 (msi)]([https](https://github.com/rinrab/aovpn-manager/releases/latest/download/AOVpnManager-win-x86.msi))
-- [ARM (msi)]([https](https://github.com/rinrab/aovpn-manager/releases/latest/download/AOVpnManager-win-arm64.msi))
+- [x64 (msi)](https://github.com/rinrab/aovpn-manager/releases/latest/download/AOVpnManager-win-x64.msi)
+- [x86 (msi)](https://github.com/rinrab/aovpn-manager/releases/latest/download/AOVpnManager-win-x86.msi)
+- [ARM (msi)](https://github.com/rinrab/aovpn-manager/releases/latest/download/AOVpnManager-win-arm64.msi)
 
 ### Policy Templates
 
