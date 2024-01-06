@@ -1,4 +1,7 @@
-﻿namespace AOVpnManager
+﻿using System.Security.Cryptography;
+using System.Text;
+
+namespace AOVpnManager
 {
     public class GpUpdateProcessor
     {
@@ -38,6 +41,9 @@
             }
             else
             {
+                string lastVpnProfile = stateManager.GetLastVpnProfile();
+                string currentVpnProfile = ComputeHash(settings.VpnProfileXml);
+
                 if (lastConnectionName != null && lastConnectionName != settings.VpnConnectionName)
                 {
                     try
@@ -56,13 +62,15 @@
 
                 logger.Trace(string.Format("oldConnection: {0}", oldConnection));
 
+                stateManager.SetLastVpnProfile(currentVpnProfile);
+
                 if (oldConnection == null)
                 {
                     stateManager.SetLastConnectionName(settings.VpnConnectionName);
                     vpnManager.CreateVpnConnection(settings.VpnConnectionName, settings.VpnProfileXml);
                     logger.VpnConnectionCreated(settings.VpnConnectionName);
                 }
-                else
+                else if (lastVpnProfile != currentVpnProfile)
                 {
                     stateManager.SetLastConnectionName(null);
                     vpnManager.DeleteVpnConnection(lastConnectionName);
@@ -72,6 +80,23 @@
                     vpnManager.CreateVpnConnection(settings.VpnConnectionName, settings.VpnProfileXml);
                     logger.VpnConnectionCreated(settings.VpnConnectionName);
                 }
+            }
+        }
+
+        private string ComputeHash(string vpnProfileXml)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(vpnProfileXml));
+
+                StringBuilder rv = new StringBuilder(hash.Length * 2);
+                string symbols = "0123456789ABCDEF";
+                foreach (byte b in hash)
+                {
+                    rv.Append(symbols[b / 16]);
+                    rv.Append(symbols[b % 16]);
+                }
+                return rv.ToString();
             }
         }
 

@@ -5,6 +5,7 @@ namespace AOVpnManager
     public class StateManager : IStateManager
     {
         private const string LastConnectionName = nameof(LastConnectionName);
+        private const string LastLastVpnProfile = nameof(LastLastVpnProfile);
 
         private readonly RegistryKey root;
         private readonly string path;
@@ -23,9 +24,22 @@ namespace AOVpnManager
             }
         }
 
+        public string GetLastVpnProfile()
+        {
+            using (RegistryKey key = root.OpenSubKey(path))
+            {
+                return key.GetValue<string>(LastLastVpnProfile, null);
+            }
+        }
+
         public void SetLastConnectionName(string connectionName)
         {
             SetValue(LastConnectionName, connectionName);
+        }
+
+        public void SetLastVpnProfile(string profileXml)
+        {
+            SetValue(LastLastVpnProfile, profileXml);
         }
 
         private void SetValue(string keyName, object value)
