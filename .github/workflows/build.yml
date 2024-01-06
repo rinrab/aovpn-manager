@@ -3,8 +3,12 @@ name: Build and Test
 on:
   push:
     branches: [ "master" ]
+    paths-ignore:
+      - 'www/**'
   pull_request:
     branches: [ "master" ]
+    paths-ignore:
+      - 'www/**'
 
 jobs:
   build:
