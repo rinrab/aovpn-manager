@@ -18,7 +18,7 @@ namespace AOVpnManager
 
         public string GetLastConnectionName()
         {
-            using (RegistryKey key = root.OpenSubKey(path))
+            using (RegistryKey key = root.CreateSubKey(path))
             {
                 return key.GetValue<string>(LastConnectionName, null);
             }
@@ -26,7 +26,7 @@ namespace AOVpnManager
 
         public string GetLastVpnProfile()
         {
-            using (RegistryKey key = root.OpenSubKey(path))
+            using (RegistryKey key = root.CreateSubKey(path))
             {
                 return key.GetValue<string>(LastLastVpnProfile, null);
             }
