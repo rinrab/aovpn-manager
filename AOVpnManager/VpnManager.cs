@@ -1,6 +1,5 @@
 ﻿using Microsoft.Management.Infrastructure;
 using System;
-using System.Collections.Generic;
 using System.Security;
 
 namespace AOVpnManager
@@ -59,19 +58,6 @@ namespace AOVpnManager
             catch (CimException ex)
             {
                 throw ConvertCimException(ex);
-            }
-        }
-
-        public IEnumerable<VpnConnectionInfo> EnumarateVpnConnections()
-        {
-            foreach (CimInstance instance in session.EnumerateInstances(NamespaceName, ClassName))
-            {
-                using (instance)
-                {
-                    string connectionName = UnescapeConnectionName((string)instance.CimInstanceProperties[PropertyNames.ConnectionName].Value);
-                    string profileXml = (string)instance.CimInstanceProperties[PropertyNames.ProfileXml].Value;
-                    yield return new VpnConnectionInfo(connectionName, profileXml);
-                }
             }
         }
 

@@ -22,11 +22,25 @@ namespace AOVpnManager
         {
             GroupPolicySettings settings = policyProvider.ReadSettings();
             string lastConnectionName = stateManager.GetLastConnectionName();
+            string oldVpnProfileHash = stateManager.GetLastVpnProfile();
+            string newVpnProfileHash = ComputeHash(settings.VpnProfileXml);
 
-            if (string.IsNullOrEmpty(settings.VpnProfileXml))
+            bool settingsChanged = false;
+
+            if (lastConnectionName != settings.VpnConnectionName)
+            {
+                settingsChanged = true;
+            }
+            else if (oldVpnProfileHash != newVpnProfileHash)
+            {
+                settingsChanged = true;
+            }
+
+            if (settingsChanged)
             {
                 if (lastConnectionName != null)
                 {
+                    // Remove
                     try
                     {
                         vpnManager.DeleteVpnConnection(lastConnectionName);
@@ -37,47 +51,16 @@ namespace AOVpnManager
                     }
 
                     stateManager.SetLastConnectionName(null);
-                }
-            }
-            else
-            {
-                string lastVpnProfile = stateManager.GetLastVpnProfile();
-                string currentVpnProfile = ComputeHash(settings.VpnProfileXml);
-
-                if (lastConnectionName != null && lastConnectionName != settings.VpnConnectionName)
-                {
-                    try
-                    {
-                        vpnManager.DeleteVpnConnection(lastConnectionName);
-                        logger.VpnConnectionDeleted(lastConnectionName);
-                    }
-                    catch (VpnConnectionNotFoundException)
-                    {
-                    }
-
-                    stateManager.SetLastConnectionName(null);
+                    stateManager.SetLastVpnProfile(null);
                 }
 
-                VpnConnectionInfo oldConnection = FindVpnConnection(settings.VpnConnectionName);
-
-                logger.Trace(string.Format("oldConnection: {0}", oldConnection));
-
-                stateManager.SetLastVpnProfile(currentVpnProfile);
-
-                if (oldConnection == null)
+                if (settings.VpnProfileXml != null)
                 {
+                    // Create
                     stateManager.SetLastConnectionName(settings.VpnConnectionName);
                     vpnManager.CreateVpnConnection(settings.VpnConnectionName, settings.VpnProfileXml);
-                    logger.VpnConnectionCreated(settings.VpnConnectionName);
-                }
-                else if (lastVpnProfile != currentVpnProfile)
-                {
-                    stateManager.SetLastConnectionName(null);
-                    vpnManager.DeleteVpnConnection(lastConnectionName);
-                    logger.VpnConnectionDeleted(lastConnectionName);
+                    stateManager.SetLastVpnProfile(newVpnProfileHash);
 
-                    stateManager.SetLastConnectionName(settings.VpnConnectionName);
-                    vpnManager.CreateVpnConnection(settings.VpnConnectionName, settings.VpnProfileXml);
                     logger.VpnConnectionCreated(settings.VpnConnectionName);
                 }
             }
@@ -98,18 +81,6 @@ namespace AOVpnManager
                 }
                 return rv.ToString();
             }
-        }
-
-        private VpnConnectionInfo FindVpnConnection(string connectionName)
-        {
-            foreach (VpnConnectionInfo connection in vpnManager.EnumarateVpnConnections())
-            {
-                if (connection.ConnectionName == connectionName)
-                {
-                    return connection;
-                }
-            }
-            return null;
         }
     }
 }

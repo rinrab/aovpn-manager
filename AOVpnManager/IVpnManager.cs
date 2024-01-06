@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace AOVpnManager
 {
@@ -7,6 +6,5 @@ namespace AOVpnManager
     {
         void CreateVpnConnection(string connectionName, string profile);
         void DeleteVpnConnection(string connectionName);
-        IEnumerable<VpnConnectionInfo> EnumarateVpnConnections();
     }
 }
