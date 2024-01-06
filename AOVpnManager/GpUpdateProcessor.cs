@@ -23,7 +23,7 @@ namespace AOVpnManager
             GroupPolicySettings settings = policyProvider.ReadSettings();
             string lastConnectionName = stateManager.GetLastConnectionName();
             string oldVpnProfileHash = stateManager.GetLastVpnProfile();
-            string newVpnProfileHash = ComputeHash(settings.VpnProfileXml);
+            string newVpnProfileHash = settings.VpnProfileXml == null ? null : ComputeHash(settings.VpnProfileXml);
 
             bool settingsChanged = false;
 
