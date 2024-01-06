@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Always On VPN manager for Group Policy</title>
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <style>
+    @media (max-width: 600px) {
+      .download-card {
+        display: block;
+      }
+    }
+
+    .container {
+      max-width: 1000px;
+    }
+
+    body {
+      min-height: 100vh;
+    }
+  </style>
+</head>
+
+<body class="d-flex flex-column">
+  <div class="container flex-grow-1 d-flex flex-column">
+    <h1>Always On VPN manager for Group Policy</h1>
+    <p>An open-source app for deploying Always On VPN via Group Policy.</p>
+    <b>Features</b>
+    <ul>
+      <li><b>No</b> user action needed</li>
+      <li>Fastest and easiest way to deploy your Always On VPN</li>
+      <li>Free and open-source</li>
+    </ul>
+    <div>
+      <h2>Download</h2>
+      <hr>
+      <div class="row download-card">
+        <div class="col">
+          <h4>Group Policy update processor</h4>
+          <p>
+            Group Policy update processor should be installed on user's computer.
+            This app will be looking for updates in group policy and apply them.
+          </p>
+        </div>
+        <div class="col-auto d-flex flex-column gap-1" style="min-width: 250px;">
+          <a href="https://github.com/rinrab/aovpn-manager/releases/latest/download/AOVpnManager-win-x64.msi"
+            class="btn btn-primary">x64 (msi)</a>
+          <a href="https://github.com/rinrab/aovpn-manager/releases/latest/download/AOVpnManager-win-x86.msi"
+            class="btn btn-primary">x86 (msi)</a>
+          <a href="https://github.com/rinrab/aovpn-manager/releases/latest/download/AOVpnManager-win-arm64.msi"
+            class="btn btn-primary">ARM (msi)</a>
+        </div>
+      </div>
+      <hr>
+      <div class="row download-card">
+        <div class="col">
+          <h4>Policy Templates</h4>
+          <p>
+            Install Policy Templates on your server to manage your Always On VPN Connection.
+          </p>
+        </div>
+        <div class="col-auto d-flex flex-column gap-1" style="min-width: 250px;">
+          <a class="btn btn-primary">Policy Templates (admx)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="bg-body-tertiary text-muted">
+    <div class="container d-flex p-3">
+      <div>Copyright &copy; Timofei Zhakov</div>
+      <div class="col"></div>
+      <a href="https://github.com/rinrab/aovpn-manager">GitHub</a>
+    </div>
+  </footer>
+</body>
