@@ -24,6 +24,14 @@ Install Policy Templates on your server to manage your Always On VPN Connection.
 
 - [Policy Templates (admx)](https://github.com/rinrab/aovpn-manager/releases/latest/download/PolicyTemplates.zip)
 
+### Latest unstable build
+
+> [!WARNING]
+> These builds are unstable and may contain bugs. They created from the latest pushed commit.
+>
+> - [AOVpnManager x64 (msi)](https://nightly.link/rinrab/aovpn-manager/workflows/build/master/AOVpnManager-win-x64.zip)
+> - [Policy Templates (admx)](https://nightly.link/rinrab/aovpn-manager/workflows/build/master/Policy%20Templates.zip)
+
 ## Demo
 
 ![](www/demo.gif)
