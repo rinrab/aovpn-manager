@@ -14,7 +14,7 @@ jobs:
   build:
     strategy:
       matrix:
-        arch: [win-x64]
+        arch: [x64]
 
     runs-on: windows-latest
 
