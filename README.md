@@ -1,5 +1,10 @@
 #  Always On Vpn Manager for Group Policy
 
+![GitHub Release](https://img.shields.io/github/v/release/rinrab/aovpn-manager)
+![GitHub all releases](https://img.shields.io/github/downloads/rinrab/aovpn-manager/total)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/rinrab/aovpn-manager/build.yml)
+![GitHub License](https://img.shields.io/github/license/rinrab/aovpn-manager)
+
 An open-source application for deploying Always On VPN via Group Policy.
 
 ## Features
