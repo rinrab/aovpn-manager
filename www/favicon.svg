@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" color="#d4d4d4">
     <rect width="16" height="16" rx="3" fill="#16003a" />
-    <text dx="8" fill="currentColor" text-anchor="middle" font-weight="bold" dy="7.5" font-family="sans-serif" font-size="7">VPN</text>
+    <text dx="8" fill="currentColor" text-anchor="middle" font-weight="bold" dy="8" font-family="sans-serif" font-size="6">VPN</text>
     <g transform="translate(0, 4)">
-        <path d="m10.4 5.6-4.8 0a2.4 2.4 90 000 4.8l4.8 0a2.4 2.4 90 000-4.8" fill="green" />
-        <ellipse rx="2" ry="2" cx="10.2" cy="8" fill="currentColor" />
+        <path d="m9.92 6.08-3.84 0a1.92 1.92 90 000 3.84l3.84 0a1.92 1.92 90 000-3.84" fill="green" />
+        <ellipse rx="1.6" ry="1.6" cx="10" cy="8" fill="currentColor" />
     </g>
 </svg>
