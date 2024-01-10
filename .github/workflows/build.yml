@@ -2,11 +2,14 @@ name: Build and Test
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - '*'
     paths-ignore:
       - 'www/**'
+
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - '*'
     paths-ignore:
       - 'www/**'
 
