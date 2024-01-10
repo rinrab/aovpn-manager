@@ -61,6 +61,11 @@ namespace AOVpnManager
             }
         }
 
+        public void Dispose()
+        {
+            session.Dispose();
+        }
+
         private static Exception ConvertCimException(CimException ex)
         {
             if (ex.NativeErrorCode == NativeErrorCode.NotFound)
@@ -101,11 +106,6 @@ namespace AOVpnManager
         private static string EscapeProfileXml(string profileXml)
         {
             return SecurityElement.Escape(profileXml);
-        }
-
-        public void Dispose()
-        {
-            session.Dispose();
         }
     }
 }
