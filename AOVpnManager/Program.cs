@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 
 namespace AOVpnManager
 {
@@ -12,6 +13,8 @@ namespace AOVpnManager
             ILogger logger = CreateLogger(options.IsConsole);
             IGroupPolicyProvider policyProvider = new GroupPolicyProvider(Registry.LocalMachine, @"SOFTWARE\Policies\AOVpnManager");
             IStateManager stateManager = new StateManager(Registry.LocalMachine, @"SOFTWARE\AOVpnManager");
+
+            Trace.Listeners.Add(new EventSourceTraceListener(logger));
 
             logger.Started();
             int exitCode = 0;
