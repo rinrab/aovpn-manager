@@ -115,11 +115,6 @@ namespace AOVpnManager
             return Uri.EscapeDataString(connectionName);
         }
 
-        private static string UnescapeConnectionName(string connectionName)
-        {
-            return Uri.UnescapeDataString(connectionName);
-        }
-
         private static string EscapeProfileXml(string profileXml)
         {
             return SecurityElement.Escape(profileXml);
