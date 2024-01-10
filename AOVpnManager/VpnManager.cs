@@ -36,7 +36,21 @@ namespace AOVpnManager
                 {
                     AddKeyPropertiesToVpnConnection(newInstance, connectionName);
                     AddValuePropertiesToVpnConnection(newInstance, profile);
-                    session.CreateInstance(NamespaceName, newInstance);
+                    try
+                    {
+                        session.CreateInstance(NamespaceName, newInstance);
+                    }
+                    catch (CimException ex)
+                    {
+                        if (ex.NativeErrorCode == NativeErrorCode.AlreadyExists)
+                        {
+                            throw new VpnConnectionNotFoundException(connectionName);
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
                 }
             }
             catch (CimException ex)
@@ -52,7 +66,21 @@ namespace AOVpnManager
                 using (CimInstance queryInstance = new CimInstance(ClassName, NamespaceName))
                 {
                     AddKeyPropertiesToVpnConnection(queryInstance, connectionName);
-                    session.DeleteInstance(queryInstance);
+                    try
+                    {
+                        session.DeleteInstance(queryInstance);
+                    }
+                    catch (CimException ex)
+                    {
+                        if (ex.NativeErrorCode == NativeErrorCode.NotFound)
+                        {
+                            throw new VpnConnectionNotFoundException(connectionName);
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
                 }
             }
             catch (CimException ex)
@@ -68,18 +96,7 @@ namespace AOVpnManager
 
         private static Exception ConvertCimException(CimException ex)
         {
-            if (ex.NativeErrorCode == NativeErrorCode.NotFound)
-            {
-                return new VpnConnectionNotFoundException();
-            }
-            else if (ex.NativeErrorCode == NativeErrorCode.AlreadyExists)
-            {
-                return new VpnConnectionAlreadyExistsException();
-            }
-            else
-            {
-                return new Exception(string.Format("{0} ({1})", ex.Message, ex.NativeErrorCode), ex);
-            }
+            return new Exception(string.Format("{0} ({1})", ex.Message, ex.NativeErrorCode), ex);
         }
 
         private static void AddKeyPropertiesToVpnConnection(CimInstance instance, string connectionName)
