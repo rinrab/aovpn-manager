@@ -77,13 +77,13 @@ namespace AOVpnManager
             }
         }
 
-        private void AddKeyPropertiesToVpnConnection(CimInstance instance, string connectionName)
+        private static void AddKeyPropertiesToVpnConnection(CimInstance instance, string connectionName)
         {
             instance.CimInstanceProperties.Add(CimProperty.Create(PropertyNames.ParentId, "./Vendor/MSFT/VPNv2", CimType.String, CimFlags.Key));
             instance.CimInstanceProperties.Add(CimProperty.Create(PropertyNames.ConnectionName, EscapeConnectionName(connectionName), CimType.String, CimFlags.Key));
         }
 
-        private void AddValuePropertiesToVpnConnection(CimInstance instance, string profileXml)
+        private static void AddValuePropertiesToVpnConnection(CimInstance instance, string profileXml)
         {
             instance.CimInstanceProperties.Add(CimProperty.Create(PropertyNames.ProfileXml, EscapeProfileXml(profileXml), CimType.String, CimFlags.Property));
         }
