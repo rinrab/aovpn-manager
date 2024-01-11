@@ -3,7 +3,7 @@
 namespace AOVpnManager
 {
     [Serializable]
-    internal class VpnConnectionAlreadyExistsException : Exception
+    public class VpnConnectionAlreadyExistsException : Exception
     {
         public VpnConnectionAlreadyExistsException(string connectionName) :
             base(string.Format("Vpn Connection '{0}' already exists.", connectionName))
