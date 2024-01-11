@@ -9,7 +9,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AOVpnManager\AOVpnManager.csproj" />
-    <None Include="license.rtf" />
+    <None Include="LICENSE.rtf" />
     <Content Include="TaskConfig.xml" />
   </ItemGroup>
   <PropertyGroup>
