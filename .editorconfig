@@ -6,5 +6,5 @@ trim_trailing_whitespace = true
 indent_style = space
 indent_size = 4
 
-[*.{xml,html,csproj,wixproj}]
+[*.{xml,html,csproj,wixproj,props,wxl}]
 indent_size = 2
