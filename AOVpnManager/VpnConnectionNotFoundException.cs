@@ -2,6 +2,7 @@
 
 namespace AOVpnManager
 {
+    [Serializable]
     public class VpnConnectionNotFoundException : Exception
     {
         public VpnConnectionNotFoundException(string connectionName) :
