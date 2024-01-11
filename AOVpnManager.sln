@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOVpnManager", "AOVpnManage
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{24427106-2E77-4E53-A790-1C021EEBEA7C}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		CHANGELOG.md = CHANGELOG.md
 		Directory.build.props = Directory.build.props
+		LICENSE = LICENSE
+		README.md = README.md
 		Version.props = Version.props
 	EndProjectSection
 EndProject
