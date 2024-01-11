@@ -44,7 +44,7 @@ namespace AOVpnManager
                     {
                         if (ex.NativeErrorCode == NativeErrorCode.AlreadyExists)
                         {
-                            throw new VpnConnectionNotFoundException(connectionName);
+                            throw new VpnConnectionAlreadyExistsException(connectionName);
                         }
                         else
                         {
