@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Windows.Networking.Vpn;
 
 namespace AdvancedVpnManager
@@ -18,6 +19,10 @@ namespace AdvancedVpnManager
             {
                 return vpnProfile.ProfileName;
             }
+            set
+            {
+                // TODO:
+            }
         }
 
         public string Servers
@@ -25,6 +30,15 @@ namespace AdvancedVpnManager
             get
             {
                 return string.Join(';', vpnProfile.Servers);
+            }
+            set
+            {
+                vpnProfile.Servers.Clear();
+
+                foreach (string server in value.Split(';', StringSplitOptions.RemoveEmptyEntries))
+                {
+                    vpnProfile.Servers.Add(server);
+                }
             }
         }
 

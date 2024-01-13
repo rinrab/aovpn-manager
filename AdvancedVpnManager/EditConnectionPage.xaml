@@ -30,7 +30,7 @@
                  Header="Connection Name"
                  IsReadOnly="True" />
 
-        <TextBox Text="{Binding Servers, Mode=OneWay}"
+        <TextBox Text="{Binding Servers, Mode=TwoWay}"
                  Header="Servers" />
 
         <ComboBox SelectedIndex="{Binding ProtocolTypeIndex, Mode=TwoWay}"
