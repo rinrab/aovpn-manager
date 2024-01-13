@@ -17,23 +17,27 @@
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
-    <ListBox Grid.Row="0"
-             Grid.Column="0"
-             ItemsSource="{Binding VpnConnections}"
-             SelectedItem="{Binding SelectedConnection, Mode=TwoWay}">
-      <ListBox.ItemTemplate>
-        <DataTemplate x:DataType="local:VpnConnection">
-          <StackPanel Orientation="Horizontal"
-                      Spacing="4">
-            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}"
-                      Glyph="&#xE705;"
-                      Grid.Column="0" />
+    <ScrollViewer Grid.Row="0"
+                  Grid.Column="0"
+                  Padding="8">
+      <ListBox ItemsSource="{Binding VpnConnections}"
+               Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+               SelectedItem="{Binding SelectedConnection, Mode=TwoWay}"
+               VerticalAlignment="Top">
+        <ListBox.ItemTemplate>
+          <DataTemplate x:DataType="local:VpnConnection">
+            <StackPanel Orientation="Horizontal"
+                        Spacing="4">
+              <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}"
+                        Glyph="&#xE705;"
+                        Grid.Column="0" />
 
-            <TextBlock Text="{Binding Name}"
-                       Grid.Column="2" />
-          </StackPanel>
-        </DataTemplate>
-      </ListBox.ItemTemplate>
-    </ListBox>
+              <TextBlock Text="{Binding Name}"
+                         Grid.Column="2" />
+            </StackPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+    </ScrollViewer>
   </Grid>
 </Page>

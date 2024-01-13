@@ -22,38 +22,39 @@
             ToolTipService.ToolTip="Back"
             Click="BackButton_Click" />
 
-    <StackPanel Grid.Row="1"
-                Margin="8"
-                Spacing="16">
+    <ScrollViewer Grid.Row="1"
+                  Padding="8">
+      <StackPanel Spacing="16">
 
-      <TextBox Text="{Binding Name, Mode=OneWay}"
-               Header="Connection Name" />
+        <TextBox Text="{Binding Name, Mode=OneWay}"
+                 Header="Connection Name" />
 
-      <TextBox Text="{Binding Servers, Mode=OneWay}"
-               Header="Servers" />
+        <TextBox Text="{Binding Servers, Mode=OneWay}"
+                 Header="Servers" />
 
-      <ComboBox SelectedIndex="{Binding ProtocolTypeIndex, Mode=TwoWay}"
-                HorizontalAlignment="Stretch"
-                Header="Authentication Method">
-        <ComboBoxItem>Point-to-Point Tunneling Protocol (PPTP)</ComboBoxItem>
-        <ComboBoxItem>Layer 2 Tunneling Protocol (L2TP)</ComboBoxItem>
-        <ComboBoxItem>Internet Protocol Security Internet Key Exchange v2 (IPsec IKEv2)</ComboBoxItem>
-      </ComboBox>
+        <ComboBox SelectedIndex="{Binding ProtocolTypeIndex, Mode=TwoWay}"
+                  HorizontalAlignment="Stretch"
+                  Header="Authentication Method">
+          <ComboBoxItem>Point-to-Point Tunneling Protocol (PPTP)</ComboBoxItem>
+          <ComboBoxItem>Layer 2 Tunneling Protocol (L2TP)</ComboBoxItem>
+          <ComboBoxItem>Internet Protocol Security Internet Key Exchange v2 (IPsec IKEv2)</ComboBoxItem>
+        </ComboBox>
 
-      <ComboBox SelectedIndex="{Binding AuthenticationMethodIndex, Mode=TwoWay}"
-                HorizontalAlignment="Stretch"
-                Header="Authentication Method">
-        <ComboBoxItem>Microsoft Challenge-Handshake Authentication Protocol v2 (MS-CHAP v2)</ComboBoxItem>
-        <ComboBoxItem>Extensible Authentication Protocol (EAP)</ComboBoxItem>
-        <ComboBoxItem>Certificate</ComboBoxItem>
-        <ComboBoxItem>Pre-shared key</ComboBoxItem>
-      </ComboBox>
+        <ComboBox SelectedIndex="{Binding AuthenticationMethodIndex, Mode=TwoWay}"
+                  HorizontalAlignment="Stretch"
+                  Header="Authentication Method">
+          <ComboBoxItem>Microsoft Challenge-Handshake Authentication Protocol v2 (MS-CHAP v2)</ComboBoxItem>
+          <ComboBoxItem>Extensible Authentication Protocol (EAP)</ComboBoxItem>
+          <ComboBoxItem>Certificate</ComboBoxItem>
+          <ComboBoxItem>Pre-shared key</ComboBoxItem>
+        </ComboBox>
 
-      <TextBox Text="{Binding EapConfiguration}"
-               Header="EAP Authentication Configuration"
-               AcceptsReturn="True"
-               Height="100"
-               IsEnabled="{Binding IsEapConfigurationEnabled}"/>
-    </StackPanel>
+        <TextBox Text="{Binding EapConfiguration}"
+                 Header="EAP Authentication Configuration"
+                 AcceptsReturn="True"
+                 Height="100"
+                 IsEnabled="{Binding IsEapConfigurationEnabled}" />
+      </StackPanel>
+    </ScrollViewer>
   </Grid>
 </Page>
