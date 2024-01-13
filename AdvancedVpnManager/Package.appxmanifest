@@ -4,12 +4,13 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  IgnorableNamespaces="uap mp">
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap mp rescap">
 
   <Identity
     Name="1c2756d3-a443-4742-aca6-1404228fbff2"
     Publisher="CN=rinrab"
-    Version="0.1.0.0" />
+    Version="0.1.2.0" />
 
   <mp:PhoneIdentity PhoneProductId="1c2756d3-a443-4742-aca6-1404228fbff2" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -42,4 +43,8 @@
       </uap:VisualElements>
     </Application>
   </Applications>
+
+  <Capabilities>
+    <rescap:Capability Name="networkingVpnProvider" />
+  </Capabilities>
 </Package>
