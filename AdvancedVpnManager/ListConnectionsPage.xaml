@@ -23,20 +23,15 @@
              SelectedItem="{Binding SelectedConnection, Mode=TwoWay}">
       <ListBox.ItemTemplate>
         <DataTemplate x:DataType="local:VpnConnection">
-          <Grid>
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="auto" />
-              <ColumnDefinition Width="4" />
-              <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
+          <StackPanel Orientation="Horizontal"
+                      Spacing="4">
             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}"
                       Glyph="&#xE705;"
                       Grid.Column="0" />
 
             <TextBlock Text="{Binding Name}"
                        Grid.Column="2" />
-          </Grid>
+          </StackPanel>
         </DataTemplate>
       </ListBox.ItemTemplate>
     </ListBox>
