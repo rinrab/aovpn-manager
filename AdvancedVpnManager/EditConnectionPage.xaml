@@ -14,6 +14,7 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
       <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
 
     <Button x:Name="BackButton"
@@ -55,6 +56,15 @@
                  AcceptsReturn="True"
                  Height="100"
                  IsEnabled="{Binding IsEapConfigurationEnabled}" />
+
+        <StackPanel Spacing="8"
+                    Orientation="Horizontal">
+          <Button Width="100"
+                  Click="ApplyButton_Click">Apply</Button>
+
+          <Button Width="100"
+                  Click="BackButton_Click">Cancel</Button>
+        </StackPanel>
       </StackPanel>
     </ScrollViewer>
   </Grid>

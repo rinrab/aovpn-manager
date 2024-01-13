@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using Windows.Networking.Vpn;
+using Windows.UI.Popups;
 
 namespace AdvancedVpnManager
 {
@@ -11,6 +12,11 @@ namespace AdvancedVpnManager
         public EditViewModel(VpnNativeProfile vpnProfile)
         {
             this.vpnProfile = vpnProfile;
+        }
+
+        public async void UpdateProfile()
+        {
+            // TODO:
         }
 
         public string Name

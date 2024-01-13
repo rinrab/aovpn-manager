@@ -19,6 +19,11 @@ namespace AdvancedVpnManager
             App.TryGoBack();
         }
 
+        private void ApplyButton_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.UpdateProfile();
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             viewModel = new EditViewModel((VpnNativeProfile)e.Parameter);
