@@ -27,7 +27,8 @@
       <StackPanel Spacing="16">
 
         <TextBox Text="{Binding Name, Mode=OneWay}"
-                 Header="Connection Name" />
+                 Header="Connection Name"
+                 IsReadOnly="True" />
 
         <TextBox Text="{Binding Servers, Mode=OneWay}"
                  Header="Servers" />
