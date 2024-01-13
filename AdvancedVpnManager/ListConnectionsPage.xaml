@@ -27,7 +27,7 @@
               <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <FontIcon FontFamily="Segoe MDL2 Assets"
+            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}"
                       Glyph="&#xE705;"
                       Grid.Column="0" />
 
