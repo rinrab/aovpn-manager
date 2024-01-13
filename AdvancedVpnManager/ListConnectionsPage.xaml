@@ -19,7 +19,7 @@
              Grid.Column="0"
              ItemsSource="{Binding VpnConnections}">
       <ListBox.ItemTemplate>
-        <DataTemplate>
+        <DataTemplate x:DataType="local:VpnConnection">
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="auto" />
