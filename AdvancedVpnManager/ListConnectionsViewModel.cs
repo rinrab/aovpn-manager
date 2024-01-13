@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.Networking.Vpn;
 
@@ -26,6 +27,18 @@ namespace AdvancedVpnManager
             }
         }
 
+        public VpnConnection SelectedConnection
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+                App.Navigate<EditConnectionPage>(value.Profile);
+            }
+        }
+
         public async Task RefreshAsync()
         {
             vpnConnections = await GetVpnConnections();
@@ -39,11 +52,12 @@ namespace AdvancedVpnManager
 
             List<VpnConnection> rv = new List<VpnConnection>(profiles.Count);
 
-            foreach (IVpnProfile profile in profiles)
+            foreach (VpnNativeProfile profile in profiles.Cast<VpnNativeProfile>())
             {
                 rv.Add(new VpnConnection
                 {
-                    Name = profile.ProfileName
+                    Name = profile.ProfileName,
+                    Profile = profile,
                 });
             }
 
@@ -59,5 +73,6 @@ namespace AdvancedVpnManager
     public class VpnConnection
     {
         public string Name { get; set; }
+        public VpnNativeProfile Profile { get; set; }
     }
 }

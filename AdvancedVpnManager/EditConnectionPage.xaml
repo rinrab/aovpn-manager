@@ -1,0 +1,57 @@
+﻿<Page x:Class="AdvancedVpnManager.EditConnectionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:AdvancedVpnManager"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      d:DataContext="{d:DesignInstance Type=local:EditViewModel}"
+      mc:Ignorable="d"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <Button x:Name="BackButton"
+            Style="{StaticResource NavigationBackButtonNormalStyle}"
+            IsEnabled="{x:Bind Frame.CanGoBack, Mode=OneWay}"
+            ToolTipService.ToolTip="Back"
+            Click="BackButton_Click" />
+
+    <StackPanel Grid.Row="1"
+                Margin="8"
+                Spacing="16">
+
+      <TextBox Text="{Binding Name, Mode=OneWay}"
+               Header="Connection Name" />
+
+      <TextBox Text="{Binding Servers, Mode=OneWay}"
+               Header="Servers" />
+
+      <ComboBox SelectedIndex="{Binding ProtocolTypeIndex, Mode=TwoWay}"
+                HorizontalAlignment="Stretch"
+                Header="Authentication Method">
+        <ComboBoxItem>Point-to-Point Tunneling Protocol (PPTP)</ComboBoxItem>
+        <ComboBoxItem>Layer 2 Tunneling Protocol (L2TP)</ComboBoxItem>
+        <ComboBoxItem>Internet Protocol Security Internet Key Exchange v2 (IPsec IKEv2)</ComboBoxItem>
+      </ComboBox>
+
+      <ComboBox SelectedIndex="{Binding AuthenticationMethodIndex, Mode=TwoWay}"
+                HorizontalAlignment="Stretch"
+                Header="Authentication Method">
+        <ComboBoxItem>Microsoft Challenge-Handshake Authentication Protocol v2 (MS-CHAP v2)</ComboBoxItem>
+        <ComboBoxItem>Extensible Authentication Protocol (EAP)</ComboBoxItem>
+        <ComboBoxItem>Certificate</ComboBoxItem>
+        <ComboBoxItem>Pre-shared key</ComboBoxItem>
+      </ComboBox>
+
+      <TextBox Text="{Binding EapConfiguration}"
+               Header="EAP Authentication Configuration"
+               AcceptsReturn="True"
+               Height="100"
+               IsEnabled="{Binding IsEapConfigurationEnabled}"/>
+    </StackPanel>
+  </Grid>
+</Page>

@@ -17,7 +17,8 @@
     </Grid.ColumnDefinitions>
     <ListBox Grid.Row="0"
              Grid.Column="0"
-             ItemsSource="{Binding VpnConnections}">
+             ItemsSource="{Binding VpnConnections}"
+             SelectedItem="{Binding SelectedConnection, Mode=TwoWay}">
       <ListBox.ItemTemplate>
         <DataTemplate x:DataType="local:VpnConnection">
           <Grid>
