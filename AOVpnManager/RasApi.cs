@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace AOVpnManager
@@ -35,6 +36,7 @@ namespace AOVpnManager
             {
                 if (filter(connections[i].szEntryName))
                 {
+                    Trace.WriteLine("Disconnecting VPN connection '{0}'...");
                     RasHangUp(connections[i].hrasconn);
                 }
             }
