@@ -61,6 +61,8 @@ namespace AOVpnManager
 
         public void DeleteVpnConnection(string connectionName)
         {
+            RasApi.DisconnectAll((name) => string.Equals(name, connectionName, StringComparison.OrdinalIgnoreCase));
+
             try
             {
                 using (CimInstance queryInstance = new CimInstance(ClassName, NamespaceName))
