@@ -42,6 +42,13 @@
           <util:EventManifest MessageFile="[#etwManifest.dll]" ResourceFile="[#etwManifest.dll]" />
         </File>
       </Component>
+
+      <?if $(var.Configuration) = "Debug" ?>
+      <Component Directory="INSTALLFOLDER">
+        <File Source="$(AOVpnManager.TargetDir)\AOVpnManager.pdb" Id="AOVpnManager.pdb" />
+      </Component>
+      <?endif ?>
+
     </Feature>
 
     <SetProperty Id="CreateTask" Before="CreateTask" Sequence="execute"
