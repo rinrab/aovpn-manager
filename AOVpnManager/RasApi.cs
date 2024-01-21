@@ -39,7 +39,7 @@ namespace AOVpnManager
             {
                 if (filter(connections[i].szEntryName))
                 {
-                    Trace.WriteLine("Disconnecting VPN connection '{0}'...");
+                    Trace.WriteLine("Disconnecting VPN connection '{0}'...", connections[i].szEntryName);
                     RasHangUp(connections[i].hrasconn);
                     wait = true;
                 }
