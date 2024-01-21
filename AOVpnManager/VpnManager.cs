@@ -1,5 +1,6 @@
 ﻿using Microsoft.Management.Infrastructure;
 using System;
+using System.Diagnostics;
 using System.Security;
 
 namespace AOVpnManager
@@ -83,6 +84,18 @@ namespace AOVpnManager
                             throw;
                         }
                     }
+                }
+
+                using (CimMethodParametersCollection parameters = new CimMethodParametersCollection())
+                {
+                    parameters.Add(CimMethodParameter.Create("Name", new string[] { connectionName }, CimType.StringArray, CimFlags.In));
+                    parameters.Add(CimMethodParameter.Create("Force", true, CimType.Boolean, CimFlags.In));
+                    parameters.Add(CimMethodParameter.Create("PassThru", false, CimType.Boolean, CimFlags.In));
+                    parameters.Add(CimMethodParameter.Create("AllUserConnection", true, CimType.Boolean, CimFlags.In));
+
+                    CimMethodResult rv = session.InvokeMethod(@"Root\Microsoft\Windows\RemoteAccess\Client", "PS_VpnConnection", "Remove", parameters);
+
+                    Trace.WriteLine(rv.ReturnValue);
                 }
             }
             catch (CimException ex)
