@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace AOVpnManager
 {
@@ -32,13 +33,23 @@ namespace AOVpnManager
                 count = (cb + dwSize - 1) / dwSize;
             }
 
+            bool wait = false;
+
             for (int i = 0; i < count; i++)
             {
                 if (filter(connections[i].szEntryName))
                 {
                     Trace.WriteLine("Disconnecting VPN connection '{0}'...");
                     RasHangUp(connections[i].hrasconn);
+                    wait = true;
                 }
+            }
+
+            if (wait)
+            {
+                // Wait for disconnect. See: https://learn.microsoft.com/en-us/windows/win32/api/ras/nf-ras-rashangupa#remarks
+                // TODO: wait until RasGetConnectStatus() returns disconnected
+                Thread.Sleep(3000);
             }
         }
 
